@@ -1,0 +1,28 @@
+.App-bio {
+  //   background-color: cyan;
+
+  @media (max-width: 765px) {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .TaskBar-Content {
+    @media (max-width: 765px) {
+      border-radius: 0;
+    }
+  }
+}
+
+body {
+  background-color: #ffffff;
+  color: hsl(var(--background) / var(--tw-bg-opacity));
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html.dark body {
+  background-color: #111111;
+  color: #ffffff;
+}

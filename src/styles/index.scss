@@ -1,0 +1,37 @@
+@use "tailwindcss/base";
+@use "tailwindcss/components";
+@use "tailwindcss/utilities";
+@import url("https://fonts.cdnfonts.com/css/chinacat");
+@import url("https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Imperial+Script&family=Montserrat&family=Poetsen+One&family=Praise&display=swap");
+
+$light-bg: #ffffff;
+$light-text: #111111;
+$dark-bg: #111111;
+$dark-text: #ffffff;
+
+body {
+  font-family: "Recursive", sans-serif;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+body {
+  background-color: $light-bg;
+  color: $light-text;
+}
+
+html.dark body {
+  background-color: $dark-bg;
+  color: $dark-text;
+}
+
+html,
+body {
+  touch-action: manipulation; /* chặn pinch & double-tap */
+  -ms-touch-action: manipulation; /* IE/Edge cũ */
+  -webkit-text-size-adjust: 100%; /* không cho tự tăng text */
+  text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent; /* tắt flash khi tap */
+}

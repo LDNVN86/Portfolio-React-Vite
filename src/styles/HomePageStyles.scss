@@ -1,0 +1,52 @@
+@import url("https://fonts.cdnfonts.com/css/cyrivendell");
+@import url("https://fonts.cdnfonts.com/css/toon-town-industrial-cond");
+.Bio-Container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 40px;
+  padding: 20px;
+  @media (max-width: 765px) {
+    margin-top: 0px;
+    border-radius: 0px;
+  }
+
+  .Bio-contents-container {
+    gap: 10px;
+
+    .Bio-content-title {
+      font-size: larger;
+      .Bio-introduction {
+        font-family: "Toon Town Industrial", sans-serif;
+        font-weight: 500;
+        color: black;
+      }
+      .Bio-Personal {
+        font-family: "Cyrivendell", sans-serif;
+
+        .Bio-Name {
+          font-family: "Chinacat", sans-serif;
+          font-weight: 700;
+          font-size: 40px;
+        }
+      }
+      .Type-writer {
+        font-weight: 800;
+      }
+    }
+    .Bio-Ava {
+      display: flex;
+      flex-direction: column !important;
+      justify-content: center !important;
+      img {
+        width: 140px;
+        height: 140px;
+        border: 5px double black;
+        border-radius: 50%;
+      }
+    }
+  }
+  .Bio-Status-Location {
+    font-weight: 700;
+  }
+}

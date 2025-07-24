@@ -1,0 +1,30 @@
+.audio-modal {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+}
+
+.audio-buttons {
+  margin-top: 15px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+
+  button {
+    padding: 10px 20px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &:first-child {
+      background-color: #0d6efd;
+      color: white;
+    }
+
+    &:last-child {
+      background-color: #ccc;
+    }
+  }
+}
