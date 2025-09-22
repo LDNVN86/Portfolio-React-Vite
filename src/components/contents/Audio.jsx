@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from "react";
-import AudioHomePage from "../../assets/Audio.mp3";
 
 const AudioModal = () => {
   const ID = ["9HbIb62aEZQ", "5kbk0b3DMSk", "Hq_Q9vSIg2M", "3O3eJ9j0ors"];

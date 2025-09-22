@@ -1,7 +1,5 @@
 import { useState } from "react";
-import { Prev } from "react-bootstrap/esm/PageItem";
 import { FaArrowAltCircleDown } from "react-icons/fa";
-import AvaContent from "../../../assets/Nekozane.jpg";
 import { motion, AnimatePresence } from "framer-motion";
 
 export default function ContentAbout() {
@@ -72,7 +70,11 @@ export default function ContentAbout() {
             </div>
           );
         })}
-        <img src={AvaContent}></img>
+        <img
+          src={
+            "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Nekozane.jpg"
+          }
+        ></img>
       </div>
     </>
   );

@@ -4,7 +4,7 @@ import About from "../components/pages/About/about";
 import Game from "../components/pages/Game/game";
 import Project from "../components/pages/Project/project";
 import Skills from "../components/pages/Skills/skills";
-import Space from "../components/pages/Space/space";
+import Space from "../components/pages/space/space";
 import Error404 from "../components/pages/Error404/error";
 
 const Communities = [

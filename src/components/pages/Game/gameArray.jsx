@@ -2,16 +2,18 @@ import { useEffect } from "react";
 import { Fancybox } from "@fancyapps/ui";
 import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
-import Ava1 from "../../../assets/Genshin.png";
-import Ava2 from "../../../assets/Honkai.png";
-import Ava3 from "../../../assets/Wuwa.png";
-import Ava4 from "../../../assets/AOV.png";
+const imageAva = {
+  img1: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/AOV.png",
+  img2: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Genshin.png",
+  img3: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Honkai.png",
+  img4: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Wuwa.png",
+};
 
 const GmArray = [
-  { id: "1", img: Ava1, Name: "Genshin Impact" },
-  { id: "2", img: Ava2, Name: "Honkai Star Rail" },
-  { id: "3", img: Ava3, Name: "Wuthering Wave" },
-  { id: "4", img: Ava4, Name: "Liên Quân Mobile" },
+  { id: "1", img: imageAva.img2, Name: "Genshin Impact" },
+  { id: "2", img: imageAva.img3, Name: "Honkai Star Rail" },
+  { id: "3", img: imageAva.img4, Name: "Wuthering Wave" },
+  { id: "4", img: imageAva.img1, Name: "Liên Quân Mobile" },
 ];
 
 const GameGallery = () => {

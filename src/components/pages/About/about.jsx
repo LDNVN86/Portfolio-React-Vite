@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import AvaAbout from "../../../assets/Elaina.jpg";
 
 import ContentAbout from "./StateAbout";
 
@@ -43,7 +42,9 @@ const MyAbout = () => {
                 </h1>
                 <div>
                   <img
-                    src={AvaAbout}
+                    src={
+                      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Elaina.jpg"
+                    }
                     className="drag-none size-40 sm:size-44 md:size-48 lg:size-60 float-right mb-1 ml-2 select-none rounded-md border-4 border-pink-600/50 "
                   />
                   <p className="font-extralight">

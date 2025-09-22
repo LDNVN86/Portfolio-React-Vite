@@ -1,8 +1,6 @@
 import IconHomePage from "./icon";
 import User from "../../../APIs/users";
 import Text from "../../contents/text";
-import { useEffect } from "react";
-import Ava1 from "../../../assets/Ava2.png";
 
 const Hearder = () => {
   const TextWriter = `Tôi Chỉ Là Một Coder Lod Thuộc Mảng Dev. 
@@ -17,7 +15,9 @@ const Hearder = () => {
                 <img
                   className="  w-full object-cover mx-auto md:h-full md:w-48"
                   alt="Profile"
-                  src={Ava1}
+                  src={
+                    "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Ava.jpg"
+                  }
                 />
               </div>
               <div className="w-full p-[10px] Bio-content-title">

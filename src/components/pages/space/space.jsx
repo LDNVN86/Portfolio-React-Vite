@@ -1,4 +1,3 @@
-import MaoMao from "../../../assets/Maomao.jpg";
 import { useEffect } from "react";
 
 const MySpace = () => {
@@ -88,7 +87,11 @@ const MySpace = () => {
           </div>
         </header>
         <div className="my-6 border-dashed border-8 border-cyan-500 rounded-3xl overflow-hidden w-11/12 rotate-[355deg] mx-auto">
-          <img src={MaoMao}></img>
+          <img
+            src={
+              "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Maomao.jpg"
+            }
+          ></img>
         </div>
       </div>
     </>

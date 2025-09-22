@@ -1,8 +1,5 @@
 import { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
-import VideoIntro1 from "../../../assets/video222.webm";
-import Ava1111 from "../../../assets/Ava.jpg";
-import Intro2 from "../../../assets/Intro2.webm";
 import quote from "./text";
 
 const Introduction = ({ onOverlayEnd }) => {
@@ -43,14 +40,26 @@ const Introduction = ({ onOverlayEnd }) => {
         playsInline
         className="w-full h-full object-cover"
       >
-        <source src={isMobile ? Intro2 : VideoIntro1} type="video/webm" />
+        <source
+          src={
+            isMobile
+              ? "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Intro2.webm"
+              : "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/video222.webm"
+          }
+          type="video/webm"
+        />
       </video>
 
       <div
         onClick={onOverlayEnd}
         className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-white z-5 cursor-pointer"
       >
-        <img className="rounded-full w-32 md:w-40 shadow-md" src={Ava1111} />
+        <img
+          className="rounded-full w-32 md:w-40 shadow-md"
+          src={
+            "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Ava.jpg"
+          }
+        />
         <div
           style={{ fontFamily: "Chinacat" }}
           className="font-black text-red-500 text-5xl text-center"
