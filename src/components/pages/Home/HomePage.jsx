@@ -5,7 +5,6 @@ import Header from "../Header/Header";
 import AudioModal from "../../contents/Audio";
 import Introduction from "../Introduction/introduction";
 import GotoTop from "../../contents/GotoTop";
-import Intro3 from "../../../assets/Intro4.webm";
 
 const HomePage = ({ children }) => {
   const [showHome, setShowHome] = useState(false);
