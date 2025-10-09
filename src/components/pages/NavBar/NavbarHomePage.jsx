@@ -1,34 +1,50 @@
-// NavbarHomePage.jsx
-import { NavLink } from "react-router";
+import { useMemo } from "react";
+import { NavLink } from "react-router-dom";
+import { useTranslation } from "../../../hooks/useTranslation";
+
+const NAV_ITEMS = [
+  { key: "about", path: "/about" },
+  { key: "game", path: "/game" },
+  { key: "project", path: "/project" },
+  { key: "skills", path: "/skills" },
+  { key: "space", path: "/space" },
+];
 
 const Information = () => {
-  const Infos = [
-    { info: "About", label: "/about" },
-    { info: "Game", label: "/game" },
-    { info: "Project", label: "/project" },
-    { info: "Skills", label: "/skills" },
-    { info: "Space", label: "/space" },
-  ];
+  const { t } = useTranslation();
+
+  const items = useMemo(
+    () =>
+      NAV_ITEMS.map((item) => ({
+        ...item,
+        label: t(`navigation.${item.key}`),
+      })),
+    [t]
+  );
 
   return (
-    <nav className="w-full shadow-md bg-cyan-50 rounded-xl TaskBar-Content opacity-90">
-      <ul className="flex flex-col sm:flex-row flex-wrap justify-center sm:justify-start gap-2 p-2">
-        {Infos.map(({ info, label }, idx) => (
-          <div key={idx} className="w-full sm:w-auto">
+    <nav className="w-full">
+      <ul className="flex flex-wrap justify-center gap-2 sm:justify-start">
+        {items.map(({ path, label }) => (
+          <li key={path} className="w-full sm:w-auto">
             <NavLink
-              to={label}
-              className={({ isActive }) =>
-                `block text-center px-2 py-1 rounded-lg font-semibold text-sm sm:text-base bg-cyan-200
-                ${
-                  isActive
-                    ? "bg-cyan-800 text-white"
-                    : "bg-cyan-100 text-black hover:bg-cyan-300"
-                }`
-              }
+              to={path}
+              className={({ isActive }) => {
+                const baseClass =
+                  "inline-flex w-full items-center justify-center rounded-xl px-4 py-2 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[var(--accent-ring)]";
+                const stateClass = isActive
+                  ? "shadow-md"
+                  : "text-[var(--text-muted)] hover:text-[var(--text-primary)]";
+                return `${baseClass} ${stateClass}`;
+              }}
+              style={({ isActive }) => ({
+                background: isActive ? "var(--accent-gradient)" : "var(--accent-soft)",
+                color: isActive ? "var(--accent-contrast)" : "var(--text-primary)",
+              })}
             >
-              {info}
+              {label}
             </NavLink>
-          </div>
+          </li>
         ))}
       </ul>
     </nav>

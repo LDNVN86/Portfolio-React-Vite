@@ -1,46 +1,60 @@
-const SkillCard = ({ skill }) => (
-  <div className="max-w-sm bg-white border border-gray-200 rounded-lg shadow-sm dark:bg-gray-800 dark:border-gray-700 p-3 flex flex-col justify-center! items-center!">
-    <a href={skill.link} target="_blank" rel="noopener noreferrer">
-      <img
-        className="rounded-t-lg w-full h-32 object-contain bg-white"
-        src={skill.image}
-        alt={skill.name}
-      />
-    </a>
-    <div className="p-5">
-      <a href={skill.link} target="_blank" rel="noopener noreferrer">
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-          {skill.name}
-        </h5>
-      </a>
-      <p className="mb-3 font-normal text-gray-700 dark:text-gray-400">
-        {skill.description}
-      </p>
-      <a
-        href={skill.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex items-center px-3 py-2 text-sm font-medium text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-      >
-        Tìm hiểu thêm
-        <svg
-          className="rtl:rotate-180 w-3.5 h-3.5 ms-2"
-          aria-hidden="true"
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 14 10"
-        >
-          <path
-            stroke="currentColor"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth="2"
-            d="M1 5h12m0 0L9 1m4 4L9 9"
+﻿import { useTranslation } from "../../../hooks/useTranslation";
+
+const SkillCard = ({ skill }) => {
+  const { t, language } = useTranslation();
+  const learnMoreLabel = t("skills.learnMore");
+  const badgeLabel = skill.badge?.[language] ?? skill.badge?.vi ?? skill.badge?.en ?? null;
+
+  return (
+    <div className="flex h-full flex-col overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+      <div className="flex items-center justify-between gap-3 border-b border-[var(--surface-border)] bg-[var(--surface-strong)] px-4 py-3">
+        {badgeLabel ? (
+          <span className="rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-color)]">
+            {badgeLabel}
+          </span>
+        ) : (
+          <span className="h-5" aria-hidden="true" />
+        )}
+        <a href={skill.link} target="_blank" rel="noopener noreferrer">
+          <img
+            className="h-10 w-10 object-contain"
+            src={skill.image}
+            alt={skill.name}
+            loading="lazy"
           />
-        </svg>
-      </a>
+        </a>
+      </div>
+      <div className="flex flex-1 flex-col gap-3 p-4">
+        <a href={skill.link} target="_blank" rel="noopener noreferrer">
+          <h5 className="text-lg font-bold text-[var(--text-primary)]">{skill.name}</h5>
+        </a>
+        <p className="flex-1 text-sm leading-relaxed text-[var(--text-muted)]">{skill.description}</p>
+        <a
+          href={skill.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-[var(--accent-color)] transition hover:text-[var(--accent-contrast)]"
+        >
+          {learnMoreLabel}
+          <svg
+            className="h-3.5 w-3.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 14 10"
+          >
+            <path
+              stroke="currentColor"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M1 5h12m0 0L9 1m4 4L9 9"
+            />
+          </svg>
+        </a>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 export default SkillCard;

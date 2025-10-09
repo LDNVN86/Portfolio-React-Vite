@@ -1,11 +1,12 @@
+import { lazy } from "react";
 import config from "./config";
 
-import About from "../components/pages/About/about";
-import Game from "../components/pages/Game/game";
-import Project from "../components/pages/Project/project";
-import Skills from "../components/pages/Skills/skills";
-import Space from "../components/pages/space/space";
-import Error404 from "../components/pages/Error404/error";
+const About = lazy(() => import("../components/pages/About/about"));
+const Game = lazy(() => import("../components/pages/Game/game"));
+const Project = lazy(() => import("../components/pages/Project/project"));
+const Skills = lazy(() => import("../components/pages/Skills/skills"));
+const Space = lazy(() => import("../components/pages/space/space"));
+const Error404 = lazy(() => import("../components/pages/Error404/error"));
 
 const Communities = [
   { path: config.routes.Home, component: About },

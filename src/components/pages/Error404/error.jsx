@@ -1,20 +1,35 @@
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "../../../hooks/useTranslation";
+
 const Error404 = () => {
+  const { t } = useTranslation();
+  const strings = t("error");
+
   useEffect(() => {
-    document.title = "Error 404";
-  });
+    if (strings?.documentTitle) {
+      document.title = strings.documentTitle;
+    }
+  }, [strings]);
+
   return (
-    <>
-      <div className="bg-cyan-50 shadow-md p-4 rounded-xl max-w-6xl mx-auto md:p-5 opacity-90">
-        <div className="flex flex-col gap-4 bg-cyan-50 rounded-xl justify-center h-96 w-full items-center text-center">
-          <div className="font-mono size-10 text-4xl w-full">ERROR 404</div>
-          <Link to={"/about"} className="font-mono">
-            Quay Lại Trang Chủ
-          </Link>
-        </div>
+    <section className="theme-card theme-card--strong flex min-h-[22rem] flex-col items-center justify-center gap-6 p-6 text-center md:p-8">
+      <h1 className="text-4xl font-black tracking-wide text-[var(--text-primary)]">404</h1>
+      <div className="space-y-3">
+        <p className="text-lg font-semibold text-[var(--text-primary)]">
+          {strings?.heading ?? "Page not found"}
+        </p>
+        <p className="text-sm text-[var(--text-muted)]">
+          {strings?.description ?? "The link might be broken or the page may have moved."}
+        </p>
       </div>
-    </>
+      <Link
+        to="/about"
+        className="theme-button px-6 py-2 text-sm"
+      >
+        {strings?.back ?? "Back to homepage"}
+      </Link>
+    </section>
   );
 };
 

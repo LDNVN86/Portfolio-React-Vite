@@ -1,37 +1,218 @@
 @use "tailwindcss/base";
 @use "tailwindcss/components";
 @use "tailwindcss/utilities";
-@import url("https://fonts.cdnfonts.com/css/chinacat");
-@import url("https://fonts.googleapis.com/css2?family=Caudex:ital,wght@0,400;0,700;1,400;1,700&family=Imperial+Script&family=Montserrat&family=Poetsen+One&family=Praise&display=swap");
 
-$light-bg: #ffffff;
-$light-text: #111111;
-$dark-bg: #111111;
-$dark-text: #ffffff;
+:root {
+  --background: #edf5ff;
+  --text-primary: #0f172a;
+  --text-muted: rgba(15, 23, 42, 0.65);
+  --surface: rgba(255, 255, 255, 0.78);
+  --surface-strong: rgba(255, 255, 255, 0.92);
+  --surface-border: rgba(15, 23, 42, 0.08);
+  --surface-shadow: 0 18px 48px -20px rgba(15, 23, 42, 0.35);
+  --floating-surface: rgba(15, 23, 42, 0.78);
+  --floating-text: #f8fafc;
+  --divider: rgba(15, 23, 42, 0.1);
+  --accent-color: #22d3ee;
+  --accent-soft: rgba(34, 211, 238, 0.16);
+  --accent-muted: rgba(34, 211, 238, 0.32);
+  --accent-ring: rgba(34, 211, 238, 0.4);
+  --accent-gradient: linear-gradient(135deg, #22d3ee, #6ee7ff);
+  --accent-contrast: #0f172a;
+}
+
+html {
+  background-color: var(--background);
+  color: var(--text-primary);
+  transition: background-color 0.45s ease, color 0.45s ease;
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: "Recursive", sans-serif;
+  background-color: transparent;
+  color: inherit;
+  line-height: 1.6;
+  min-height: 100vh;
+  transition: inherit;
 }
 
 body::-webkit-scrollbar {
-  display: none;
+  width: 0;
+  height: 0;
 }
 
-body {
-  background-color: $light-bg;
-  color: $light-text;
+* {
+  box-sizing: border-box;
 }
 
-html.dark body {
-  background-color: $dark-bg;
-  color: $dark-text;
+::selection {
+  background: var(--accent-muted);
+  color: var(--accent-contrast);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+a:hover {
+  color: var(--accent-color);
+  opacity: 0.85;
+}
+
+.theme-card {
+  background: var(--surface);
+  border: 1px solid var(--surface-border);
+  border-radius: 1.5rem;
+  box-shadow: var(--surface-shadow);
+  color: var(--text-primary);
+  transition: background-color 0.35s ease, border-color 0.35s ease,
+    box-shadow 0.35s ease, color 0.35s ease;
+}
+
+.theme-card--strong {
+  background: var(--surface-strong);
+}
+
+.theme-panel {
+  background: var(--surface-strong);
+  border: 1px solid var(--surface-border);
+  border-radius: 1.25rem;
+  box-shadow: var(--surface-shadow);
+  transition: background-color 0.35s ease, border-color 0.35s ease,
+    box-shadow 0.35s ease;
+}
+
+.theme-chip {
+  background: var(--accent-soft);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+.theme-chip:hover {
+  background: var(--accent-muted);
+}
+
+.theme-button {
+  background: var(--accent-gradient);
+  border-radius: 9999px;
+  border: 1px solid transparent;
+  color: var(--accent-contrast);
+  font-weight: 600;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+}
+
+.theme-button:hover {
+  transform: translateY(-1px) scale(1.02);
+  filter: brightness(1.01);
+  box-shadow: 0 15px 30px -20px var(--accent-ring);
+}
+
+.theme-button:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 2px;
+}
+
+.tippy-box[data-theme~="status-card"] {
+  background-color: var(--surface-strong);
+  color: var(--text-primary);
+  border-radius: 0.75rem;
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 20px 30px -18px rgba(15, 23, 42, 0.45);
+}
+
+.tippy-box[data-theme~="status-card"] .tippy-arrow {
+  color: var(--surface-strong);
+}
+
+.tippy-box[data-theme~="status-card"] .tippy-content {
+  padding: 0.75rem 1rem;
+}
+
+.tippy-box[data-theme~="social-glow"] {
+  background-color: var(--surface);
+  color: var(--text-primary);
+  border-radius: 0.65rem;
+  border: 1px solid var(--surface-border);
+  box-shadow: 0 12px 22px -18px rgba(15, 23, 42, 0.45);
+}
+
+.tippy-box[data-theme~="social-glow"] .tippy-arrow {
+  color: var(--surface);
+}
+
+.tippy-box[data-theme~="social-glow"] .tippy-content {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.theme-icon {
+  align-items: center;
+  background: var(--accent-soft);
+  border: 1px solid transparent;
+  border-radius: 9999px;
+  color: var(--accent-color);
+  display: inline-flex;
+  height: 2.5rem;
+  justify-content: center;
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+  width: 2.5rem;
+}
+
+.theme-icon:hover {
+  background: var(--accent-muted);
+  transform: translateY(-1px);
+}
+
+.theme-floating {
+  background: var(--floating-surface);
+  color: var(--floating-text);
+  backdrop-filter: blur(14px);
+  border-radius: 1.5rem;
+  border: 1px solid transparent;
+  box-shadow: var(--surface-shadow);
+}
+
+.theme-divider {
+  background: var(--divider);
+  height: 1px;
+  width: 100%;
+}
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible {
+  outline: 2px solid var(--accent-ring);
+  outline-offset: 2px;
 }
 
 html,
 body {
-  touch-action: manipulation; /* chặn pinch & double-tap */
-  -ms-touch-action: manipulation; /* IE/Edge cũ */
-  -webkit-text-size-adjust: 100%; /* không cho tự tăng text */
+  touch-action: manipulation; /* prevent pinch & double-tap */
+  -ms-touch-action: manipulation; /* legacy IE/Edge */
+  -webkit-text-size-adjust: 100%; /* avoid automatic text scaling */
   text-size-adjust: 100%;
-  -webkit-tap-highlight-color: transparent; /* tắt flash khi tap */
+  -webkit-tap-highlight-color: transparent; /* remove tap highlight */
+}
+html.custom-cursor-active,
+html.custom-cursor-active body,
+html.custom-cursor-active body * {
+  cursor: none !important;
+}
+
+html.custom-cursor-active body a,
+html.custom-cursor-active body button,
+html.custom-cursor-active body [role="button"],
+html.custom-cursor-active body input,
+html.custom-cursor-active body textarea,
+html.custom-cursor-active body select,
+html.custom-cursor-active body label,
+html.custom-cursor-active body summary {
+  cursor: pointer !important;
 }

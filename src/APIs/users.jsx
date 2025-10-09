@@ -1,86 +1,131 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 import MyLocation from "../services/MyLocation";
 import MyStatus from "../services/MyStatus";
+import { useAppSettings } from "../contexts/AppSettingsContext";
+
+const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
+
+const formatElapsed = (elapsedMs) => {
+  const days = Math.floor(elapsedMs / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((elapsedMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((elapsedMs % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((elapsedMs % (1000 * 60)) / 1000);
+
+  if (Number.isNaN(seconds)) return "";
+  if (days >= 1) return `(${days}d:${hours}h:${minutes}m:${seconds}s)`;
+  if (hours >= 1) return `(${hours}h:${minutes}m:${seconds}s)`;
+  return `(${minutes}m:${seconds}s)`;
+};
+
+const buildWeatherUrl = (apiKey, langCode) =>
+  `${WEATHER_URL}?lat=10.9289&lon=108.1021&appid=${apiKey}&units=metric&lang=${langCode}`;
 
 const User = () => {
-  const UidDIS = import.meta.env.VITE_UIDDIS_UserID_API_Lanyard;
-  const urlDis = `https://api.lanyard.rest/v1/users/${UidDIS}`;
+  const userId = import.meta.env.VITE_UIDDIS_UserID_API_Lanyard;
   const apiKey = import.meta.env.VITE_OPENWEATHER_API_KEY;
-  const url = `https://api.openweathermap.org/data/2.5/weather?lat=10.9289&lon=108.1021&appid=${apiKey}&units=metric&lang=vi`;
+  const { language } = useAppSettings();
+
+  const weatherLang = useMemo(() => (language === "vi" ? "vi" : "en"), [language]);
 
   const [dataUser, setDataUser] = useState(null);
   const [dataWeather, setDataWeather] = useState(null);
-  const [TimeActivities, setTimeActivities] = useState(0);
-
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get(urlDis);
-      setDataUser(response.data.data);
-    } catch (e) {
-      console.error("Lỗi khi gọi API:", e);
-    }
-  };
-
-  const fetchWeather = async () => {
-    try {
-      const response = await axios.get(url);
-      setDataWeather(response.data);
-    } catch (e) {
-      console.error("Lỗi Weather", e);
-    }
-  };
+  const [elapsed, setElapsed] = useState(0);
+  const pollingRef = useRef(null);
 
   useEffect(() => {
-    fetchUserData();
-    fetchWeather();
-    const RestDataOld = setInterval(() => {
-      fetchUserData();
-      fetchWeather();
-    }, 60000);
-    return () => {
-      clearInterval(RestDataOld);
+    if (!userId) {
+      console.warn("[status] Missing VITE_UIDDIS_UserID_API_Lanyard environment variable");
+    }
+    if (!apiKey) {
+      console.warn("[weather] Missing VITE_OPENWEATHER_API_KEY environment variable");
+    }
+  }, [userId, apiKey]);
+
+  useEffect(() => {
+    if (!userId && !apiKey) return undefined;
+
+    let isCancelled = false;
+
+    const fetchData = async () => {
+      try {
+        const requests = [];
+        if (userId) {
+          requests.push(
+            axios.get(`https://api.lanyard.rest/v1/users/${userId}`)
+          );
+        } else {
+          requests.push(Promise.resolve(null));
+        }
+
+        if (apiKey) {
+          requests.push(
+            axios.get(buildWeatherUrl(apiKey, weatherLang))
+          );
+        } else {
+          requests.push(Promise.resolve(null));
+        }
+
+        const [userResponse, weatherResponse] = await Promise.allSettled(requests);
+
+        if (isCancelled) return;
+
+        if (userResponse.status === "fulfilled" && userResponse.value) {
+          setDataUser(userResponse.value.data?.data ?? null);
+        }
+
+        if (weatherResponse.status === "fulfilled" && weatherResponse.value) {
+          setDataWeather(weatherResponse.value.data ?? null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      }
     };
-  }, []);
+
+    fetchData();
+
+    pollingRef.current = window.setInterval(fetchData, 60_000);
+
+    return () => {
+      isCancelled = true;
+      if (pollingRef.current) {
+        window.clearInterval(pollingRef.current);
+        pollingRef.current = null;
+      }
+    };
+  }, [userId, apiKey, weatherLang]);
 
   useEffect(() => {
-    if (dataUser) {
-      const TimeStart = dataUser?.activities?.find((a) => a?.type === 0)
-        ?.timestamps?.start;
-      if (!TimeStart) return;
-      const UpdateTimeActivities = setInterval(() => {
-        const CurrentTime = Date.now();
-        const progress = CurrentTime - TimeStart;
-        setTimeActivities(progress);
-      }, 1000);
-      return () => clearInterval(UpdateTimeActivities);
+    if (!dataUser) return undefined;
+
+    const activity = dataUser?.activities?.find((item) => item?.type === 0);
+    const startedAt = activity?.timestamps?.start;
+    if (!startedAt) {
+      setElapsed(0);
+      return undefined;
     }
+
+    const updateElapsed = () => {
+      setElapsed(Date.now() - startedAt);
+    };
+
+    updateElapsed();
+    const timerId = window.setInterval(updateElapsed, 1000);
+    return () => window.clearInterval(timerId);
   }, [dataUser]);
 
-  const formatDate = (TimeActivities) => {
-    let days = Math.floor(TimeActivities / (1000 * 60 * 60 * 24));
-    let hours = Math.floor(
-      (TimeActivities % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-    );
-    let minutes = Math.floor((TimeActivities % (1000 * 60 * 60)) / (1000 * 60));
-    let seconds = Math.floor((TimeActivities % (1000 * 60)) / 1000);
-    if (days >= 1) {
-      return "(" + days + "d:" + hours + "h:" + minutes + "m:" + seconds + "s)";
-    } else if (hours >= 1) {
-      return `(${hours}h:${minutes}m:${seconds}s)`;
-    } else return `(${minutes}m:${seconds}s)`;
-  };
-  const timelapsed = formatDate(TimeActivities);
+  const elapsedLabel = useMemo(() => formatElapsed(elapsed), [elapsed]);
 
   return (
-    <>
-      <div className="flex flex-col gap-3 mb-3 font-mono cursor-pointer">
-        <MyStatus Status={dataUser} TimesetDate={timelapsed}></MyStatus>
-
-        <MyLocation MyWeather={dataWeather}></MyLocation>
+    <div className="flex flex-col gap-3 md:flex-row md:items-stretch md:gap-4">
+      <div className="flex-1">
+        <MyStatus Status={dataUser} TimesetDate={elapsedLabel} />
       </div>
-    </>
+      <div className="flex-1">
+        <MyLocation MyWeather={dataWeather} />
+      </div>
+    </div>
   );
 };
 

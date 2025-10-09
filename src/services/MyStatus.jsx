@@ -1,157 +1,174 @@
-import { useState } from "react";
-
+import { useMemo } from "react";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
+import { HiOutlineInformationCircle } from "react-icons/hi2";
+import { useTranslation } from "../hooks/useTranslation";
 
-const MyStatus = ({ Status, TimesetDate }) => {
-  const customStatus = Status?.activities?.find((a) => a?.type === 4);
-  const Spotify = Status?.activities?.find((a) => a?.type === 2);
-  const Playing = Status?.activities?.find((a) => a?.type === 0);
+const STATUS_COLORS = {
+  dnd: { base: "bg-red-500", ping: "bg-red-400" },
+  idle: { base: "bg-amber-500", ping: "bg-amber-400" },
+  online: { base: "bg-emerald-500", ping: "bg-emerald-400" },
+  offline: { base: "bg-slate-500", ping: "bg-slate-400" },
+  default: { base: "bg-slate-500", ping: "bg-slate-400" },
+};
 
-  const CheckStatus = Status?.discord_status;
-  const Activity = Status?.activities;
-  const CurrentStatus = (Check) => {
-    switch (Check) {
-      case "dnd":
-        return (
-          <>
-            <h1 className="text-red-300">Đang Bận Gì Rồi</h1>
-          </>
-        );
-      case "idle":
-        return <h1 className="text-yellow-300"> Có Thể Là Đang Chill</h1>;
-
-      case "online":
-        return <h1 className="text-green-300">Đang Hoạt Động</h1>;
-      case "offline":
-        return <h1 className="text-gray-300">Đang Offline</h1>;
-      default:
-        return <h1 className="text-red-600">Đang Tải...</h1>;
-    }
-  };
-  const PingStatus = (Check) => {
-    switch (Check) {
-      case "dnd":
-        return (
-          <>
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
-            </span>
-          </>
-        );
-
-      case "idle":
-        return (
-          <>
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-yellow-400 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-yellow-500"></span>
-            </span>
-          </>
-        );
-
-      case "online":
-        return (
-          <>
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-green-500"></span>
-            </span>
-          </>
-        );
-      case "offline":
-        return (
-          <>
-            <span className="relative flex size-3">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400 opacity-75"></span>
-              <span className="relative inline-flex size-3 rounded-full bg-red-500"></span>
-            </span>
-          </>
-        );
-      default:
-        return <h1>Đang Tải</h1>;
-    }
-  };
-  const replaceChar = (data) => data?.replace(/"/g, "");
-  const [isHoverStatus, setHoverStatus] = useState(false);
+const pickPrimaryActivity = (activities) => {
+  if (!activities) return null;
   return (
-    <Tippy
-      className="w-full h-full "
-      content={
-        Status && (
-          <div className="flex w-full h-full flex-col">
-            <div className="flex flex-row gap-1 font-mono ">
-              Current Status:{CurrentStatus(CheckStatus)}
-            </div>
-            <div>
-              {Status?.discord_user?.display_name && (
-                <div className="font-mono">
-                  Name Global: {replaceChar(Status.discord_user.display_name)}
-                </div>
-              )}
-              {Activity && Activity.length > 0 && (
-                <div className="space-y-2">
-                  {Activity.map((item) => {
-                    switch (item.type) {
-                      case 0:
-                        return (
-                          <div key={item.id}>
-                            <strong>Đang Chơi:</strong>
-                            <li>
-                              {item.name}{" "}
-                              <span className="font-mono">{TimesetDate}</span>
-                            </li>
-                          </div>
-                        );
-                      case 2:
-                        return Status?.spotify?.song ? (
-                          <div key={item.id}>
-                            <strong>Đang Nghe Nhạc Trên Spotify:</strong>
-                            <ul>
-                              <li>Bài hát: {Status.spotify.song}</li>
-                              {Status.spotify.artist && (
-                                <li>Nghệ sĩ: {Status.spotify.artist}</li>
-                              )}
-                              {Status.spotify.album && (
-                                <li>Album: {Status.spotify.album}</li>
-                              )}
-                            </ul>
-                          </div>
-                        ) : null;
-                      case 4:
-                        return (
-                          <div key={item.id}>
-                            <strong>Custom Status:</strong>
-                            <div>{item.state || "Không có mô tả."}</div>
-                          </div>
-                        );
-                      default:
-                        return (
-                          <div key={item.id}>
-                            <strong>Hoạt động khác:</strong> {item.name}
-                          </div>
-                        );
-                    }
-                  })}
-                </div>
-              )}
-            </div>
-          </div>
-        )
-      }
-      visible={isHoverStatus}
-      placement="bottom"
-      animation="scale"
-    >
-      <div
-        className="flex flex-row items-center gap-2"
-        onMouseEnter={() => setHoverStatus(true)}
-        onMouseLeave={() => setHoverStatus(false)}
-      >
-        <span>{PingStatus(CheckStatus)}</span>Thanh Trạng Thái
-      </div>
-    </Tippy>
+    activities.find((item) => item.type === 0) || // playing a game
+    activities.find((item) => item.type === 2) || // listening spotify
+    activities.find((item) => item.type === 4) || // custom status
+    activities[0] ||
+    null
   );
 };
+
+const MyStatus = ({ Status, TimesetDate }) => {
+  const { t } = useTranslation();
+
+  const statusKey = Status?.discord_status ?? "loading";
+  const statusLabels = t("status.states");
+  const currentStatusLabel =
+    (statusLabels && statusLabels[statusKey]) || t("status.loading");
+
+  const activityList = Status?.activities ?? [];
+  const primaryActivity = pickPrimaryActivity(activityList);
+
+  const pingColors = STATUS_COLORS[statusKey] ?? STATUS_COLORS.default;
+
+  const subtitle = useMemo(() => {
+    if (!primaryActivity) return "";
+    if (primaryActivity.type === 0) {
+      return `${primaryActivity.name ?? ""} ${TimesetDate ?? ""}`.trim();
+    }
+    if (primaryActivity.type === 2 && Status?.spotify?.song) {
+      const artist = Status.spotify.artist ? ` • ${Status.spotify.artist}` : "";
+      return `${Status.spotify.song}${artist}`;
+    }
+    if (primaryActivity.type === 4 && primaryActivity.state) {
+      return primaryActivity.state;
+    }
+    return primaryActivity.name || "";
+  }, [primaryActivity, Status, TimesetDate]);
+
+  const tooltipContent = useMemo(() => {
+    if (!Status) {
+      return <div className="text-sm">{t("status.tooltipLoading")}</div>;
+    }
+
+    const name = Status?.discord_user?.display_name;
+
+    return (
+      <div className="flex w-64 flex-col gap-3 text-sm text-[var(--text-primary)]">
+        <div>
+          <span className="font-semibold">{t("status.currentStatus")}</span>{" "}
+          <span className="font-semibold text-[var(--accent-color)]">{currentStatusLabel}</span>
+        </div>
+        {name && (
+          <div>
+            <span className="font-semibold">{t("status.nameGlobal")}</span>{" "}
+            <span className="font-mono">{name.replace(/"/g, "")}</span>
+          </div>
+        )}
+        {activityList.length > 0 && (
+          <div className="space-y-2">
+            {activityList.map((item) => {
+              switch (item.type) {
+                case 0:
+                  return (
+                    <div key={item.id}>
+                      <strong>{t("status.playing")}</strong>
+                      <div>
+                        {item.name}{" "}
+                        <span className="font-mono">{TimesetDate}</span>
+                      </div>
+                    </div>
+                  );
+                case 2:
+                  return Status?.spotify?.song ? (
+                    <div key={item.id}>
+                      <strong>{t("status.listening")}</strong>
+                      <ul className="ml-3 list-disc">
+                        <li>
+                          {t("status.spotifySong")} {Status.spotify.song}
+                        </li>
+                        {Status.spotify.artist && (
+                          <li>
+                            {t("status.spotifyArtist")} {Status.spotify.artist}
+                          </li>
+                        )}
+                        {Status.spotify.album && (
+                          <li>
+                            {t("status.spotifyAlbum")} {Status.spotify.album}
+                          </li>
+                        )}
+                      </ul>
+                    </div>
+                  ) : null;
+                case 4:
+                  return (
+                    <div key={item.id}>
+                      <strong>{t("status.customStatus")}</strong>
+                      <div>{item.state || t("status.noDescription")}</div>
+                    </div>
+                  );
+                default:
+                  return (
+                    <div key={item.id}>
+                      <strong>{t("status.other")}</strong> {item.name}
+                    </div>
+                  );
+              }
+            })}
+          </div>
+        )}
+      </div>
+    );
+  }, [Status, TimesetDate, activityList, currentStatusLabel, t]);
+
+  return (
+    <div className="flex flex-col gap-2 rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3 text-sm text-[var(--text-primary)] shadow-sm transition hover:border-[var(--accent-muted)] hover:bg-[var(--surface-strong)]">
+      <div className="flex items-start justify-between gap-3">
+        <div className="flex min-w-0 items-center gap-3">
+          <span className="relative flex h-10 w-10 items-center justify-center rounded-full bg-[var(--accent-soft)]">
+            <span
+              className={`absolute inline-flex h-5 w-5 animate-ping rounded-full ${pingColors.ping} opacity-60`}
+            />
+            <span className={`relative inline-flex h-4 w-4 rounded-full ${pingColors.base}`} />
+          </span>
+          <div className="min-w-0">
+            <p className="font-semibold capitalize">{currentStatusLabel}</p>
+            {subtitle && (
+              <p className="truncate text-xs text-[var(--text-muted)]" title={subtitle}>
+                {subtitle}
+              </p>
+            )}
+          </div>
+        </div>
+        <Tippy
+          content={tooltipContent}
+          placement="bottom-end"
+          animation="shift-away"
+          theme="status-card"
+          arrow
+          interactive
+        >
+          <button
+            type="button"
+            className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[var(--surface-border)] bg-[var(--surface)] text-[var(--text-muted)] transition hover:border-[var(--accent-muted)] hover:text-[var(--accent-color)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--accent-ring)]"
+            aria-label={t("status.currentStatus")}
+          >
+            <HiOutlineInformationCircle className="text-base" />
+          </button>
+        </Tippy>
+      </div>
+      {primaryActivity?.type === 0 && TimesetDate && (
+        <span className="inline-flex w-fit items-center rounded-full bg-[var(--accent-soft)] px-3 py-1 text-xs font-semibold text-[var(--accent-color)]">
+          {TimesetDate}
+        </span>
+      )}
+    </div>
+  );
+};
+
 export default MyStatus;

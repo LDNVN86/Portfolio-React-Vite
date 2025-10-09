@@ -9,14 +9,14 @@ const imageAva = {
   img4: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Wuwa.png",
 };
 
-const GmArray = [
-  { id: "1", img: imageAva.img2, Name: "Genshin Impact" },
-  { id: "2", img: imageAva.img3, Name: "Honkai Star Rail" },
-  { id: "3", img: imageAva.img4, Name: "Wuthering Wave" },
-  { id: "4", img: imageAva.img1, Name: "LiÃªn QuÃ¢n Mobile" },
+const GAME_ITEMS = [
+  { id: "1", img: imageAva.img2, name: "Genshin Impact" },
+  { id: "2", img: imageAva.img3, name: "Honkai Star Rail" },
+  { id: "3", img: imageAva.img4, name: "Wuthering Wave" },
+  { id: "4", img: imageAva.img1, name: "Liên Quân Mobile" },
 ];
 
-const GameGallery = () => {
+const GameGallery = ({ imageAltPrefix = "Artwork" }) => {
   useEffect(() => {
     const selector = '[data-fancybox="gallery"]';
 
@@ -46,25 +46,26 @@ const GameGallery = () => {
   }, []);
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 p-1">
-      {GmArray.map((item) => (
+    <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-4">
+      {GAME_ITEMS.map((item) => (
         <div
           key={item.id}
-          className="bg-cyan-50 rounded-2xl shadow hover:shadow-lg transition p-4 text-center"
+          className="rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] p-4 text-center shadow-sm transition hover:shadow-lg"
         >
           <a
             data-fancybox="gallery"
             href={item.img}
-            aria-label={item.Name}
-            data-caption={item.Name}
+            aria-label={item.name}
+            data-caption={item.name}
           >
             <img
               src={item.img}
-              alt={`áº¢nh ${item.Name}`}
-              className="w-full h-50 object-cover rounded-xl mb-3 hover:scale-105 transition-transform cursor-zoom-in"
+              alt={`${imageAltPrefix} ${item.name}`}
+              className="mb-3 h-44 w-full rounded-xl object-cover transition-transform hover:scale-[1.03] cursor-zoom-in"
+              loading="lazy"
             />
           </a>
-          <div className="text-lg font-semibold">{item.Name}</div>
+          <div className="text-lg font-semibold text-[var(--text-primary)]">{item.name}</div>
         </div>
       ))}
     </div>
