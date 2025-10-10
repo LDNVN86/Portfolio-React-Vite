@@ -1,6 +1,6 @@
 import React, { Fragment, Suspense, lazy, useEffect, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import "../styles/app.scss";
+import "../styles/App.scss";
 import ScrollToTop from "../shared/components/navigation/ScrollToTop";
 
 import HomePage from "../features/home";
