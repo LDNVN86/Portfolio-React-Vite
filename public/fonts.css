@@ -1,0 +1,21 @@
+@import url("https://fonts.googleapis.com/css2?family=Poetsen+One:wght@400;700&family=Recursive:wght@400;500;600;700&display=swap");
+
+@font-face {
+  font-family: "Chinacat";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src:
+    url("https://fonts.cdnfonts.com/s/1762/chinrg__.woff2") format("woff2"),
+    url("https://fonts.cdnfonts.com/s/1762/chinrg__.woff") format("woff");
+}
+
+@font-face {
+  font-family: "Chinacat";
+  font-style: normal;
+  font-weight: 100;
+  font-display: swap;
+  src:
+    url("https://fonts.cdnfonts.com/s/1762/chint___.woff2") format("woff2"),
+    url("https://fonts.cdnfonts.com/s/1762/chint___.woff") format("woff");
+}
