@@ -223,7 +223,7 @@ export const skillsDictionary = {
   },
   gorillaMux: {
     name: "Gorilla Mux",
-    image: "https://raw.githubusercontent.com/gorilla/mux/master/assets/mux-logo.png",
+    image: "https://avatars.githubusercontent.com/u/489566?s=200&v=4",
     link: "https://github.com/gorilla/mux",
     badge: {
       vi: "Go Router",
@@ -314,7 +314,7 @@ export const skillsDictionary = {
   },
   dbeaver: {
     name: "DBeaver",
-    image: "https://dbeaver.io/wp-content/uploads/2016/11/beaver-head.png",
+    image: "https://dbeaver.com/img/dbeaver-head.png",
     link: "https://dbeaver.io/",
     badge: {
       vi: "DB Tool",

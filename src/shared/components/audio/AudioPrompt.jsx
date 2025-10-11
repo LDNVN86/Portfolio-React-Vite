@@ -21,7 +21,8 @@ const buildPlayerUrl = (videoId, origin) => {
     modestbranding: "1",
     playsinline: "1",
     loop: "1",
-    playlist: PLAYLIST_ID,
+    list: PLAYLIST_ID,
+    playlist: videoId,
     enablejsapi: "1",
     origin,
   });

@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useState } from "react";
+﻿import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "./components/Header";
 import IntroOverlay from "./components/IntroOverlay";
@@ -7,6 +7,7 @@ const AudioPrompt = lazy(() => import("../../shared/components/audio/AudioPrompt
 const BackToTop = lazy(() => import("../../shared/components/navigation/BackToTop"));
 const SitePreferencesPanel = lazy(() => import("../../shared/components/preferences/SitePreferences"));
 const NavbarMenu = lazy(() => import("./components/NavbarMenu"));
+const LazyUserPresence = lazy(() => import("./components/UserPresence"));
 
 const HomePage = ({ children }) => {
   const [introVisible, setIntroVisible] = useState(true);
@@ -78,9 +79,7 @@ const HomePage = ({ children }) => {
   return (
     <>
       <AnimatePresence>
-        {introVisible && (
-          <IntroOverlay key="intro-overlay" onOverlayEnd={handleIntroEnd} />
-        )}
+        {introVisible && <IntroOverlay key="intro-overlay" onOverlayEnd={handleIntroEnd} />}
       </AnimatePresence>
 
       <motion.div
@@ -150,6 +149,16 @@ const HomePage = ({ children }) => {
               initial={{ opacity: 0 }}
               animate={introVisible ? { opacity: 0 } : { opacity: 1 }}
               transition={{ duration: 0.45, delay: introVisible ? 0 : 0.22 }}
+              className="theme-card p-4 backdrop-blur-sm md:p-6"
+            >
+              <Suspense fallback={<div className="h-32 w-full animate-pulse rounded-xl bg-[var(--surface)]/60" />}>
+                <LazyUserPresence />
+              </Suspense>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={introVisible ? { opacity: 0 } : { opacity: 1 }}
+              transition={{ duration: 0.45, delay: introVisible ? 0 : 0.26 }}
               className="theme-card p-4 backdrop-blur-sm md:p-6"
             >
               {children}

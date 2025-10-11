@@ -1,12 +1,14 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { HiMiniMoon, HiMiniSun } from "react-icons/hi2";
 import { PiDropHalfBottomFill } from "react-icons/pi";
-import { ChromePicker } from "react-color";
 import { useAppSettings } from "../../contexts/AppSettingsContext";
 import { useTranslation } from "../../hooks/useTranslation";
 
 const ACCENT_PRESETS = ["#22d3ee", "#f97316", "#a855f7", "#facc15", "#10b981", "#fb7185"];
+const ChromePicker = lazy(() =>
+  import("react-color").then((mod) => ({ default: mod.ChromePicker }))
+);
 
 const SitePreferences = () => {
   const { theme, toggleTheme, accentColor, setAccentColor, language, setLanguage } = useAppSettings();
@@ -137,13 +139,21 @@ const SitePreferences = () => {
                     transition={{ duration: 0.2 }}
                     className="absolute left-0 top-14 z-20 w-[18rem] rounded-2xl border border-[var(--surface-border)] bg-[var(--surface-strong)] p-4 shadow-2xl backdrop-blur-sm"
                   >
-                    <ChromePicker
-                      color={accentColor}
-                      disableAlpha
-                      onChange={(color) => handleColorChange(color.hex)}
-                      onChangeComplete={(color) => handleColorChange(color.hex)}
-                      styles={chromePickerStyles}
-                    />
+                    <Suspense
+                      fallback={
+                        <div className="flex h-32 items-center justify-center text-xs text-[var(--text-muted)]">
+                          {t("common.loading")}
+                        </div>
+                      }
+                    >
+                      <ChromePicker
+                        color={accentColor}
+                        disableAlpha
+                        onChange={(color) => handleColorChange(color.hex)}
+                        onChangeComplete={(color) => handleColorChange(color.hex)}
+                        styles={chromePickerStyles}
+                      />
+                    </Suspense>
                     <div className="theme-divider my-4" />
                     <div className="flex flex-wrap items-center gap-2">
                       {ACCENT_PRESETS.map((color) => (

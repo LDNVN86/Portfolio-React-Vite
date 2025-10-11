@@ -1,6 +1,4 @@
 ﻿import { useEffect } from "react";
-import { Fancybox } from "@fancyapps/ui";
-import "@fancyapps/ui/dist/fancybox/fancybox.css";
 
 const GAME_IMAGES = {
   genshin: "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Genshin.png",
@@ -19,21 +17,38 @@ const GAME_ITEMS = [
 const GameList = ({ imageAltPrefix = "Artwork" }) => {
   useEffect(() => {
     const selector = '[data-fancybox="gallery"]';
+    let fancyboxModule;
+    let cancelled = false;
 
-    Fancybox.bind(selector, {
-      Thumbs: { autoStart: true },
-      compact: false,
-      Toolbar: {
-        items: {
-          left: ["infobar"],
-          middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
-          right: ["slideshow", "thumbs", "close"],
+    const init = async () => {
+      const [{ Fancybox }] = await Promise.all([
+        import("@fancyapps/ui"),
+        import("@fancyapps/ui/dist/fancybox/fancybox.css"),
+      ]);
+
+      if (cancelled) return;
+      fancyboxModule = Fancybox;
+      Fancybox.bind(selector, {
+        Thumbs: { autoStart: true },
+        compact: false,
+        Toolbar: {
+          items: {
+            left: ["infobar"],
+            middle: ["zoomIn", "zoomOut", "toggle1to1", "rotateCCW", "rotateCW", "flipX", "flipY"],
+            right: ["slideshow", "thumbs", "close"],
+          },
         },
-      },
-    });
+      });
+    };
+
+    init();
 
     return () => {
-      Fancybox.unbind(selector);
+      cancelled = true;
+      if (fancyboxModule) {
+        fancyboxModule.unbind(selector);
+        fancyboxModule.close();
+      }
     };
   }, []);
 

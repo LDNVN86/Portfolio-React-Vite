@@ -1,12 +1,10 @@
 import { useEffect, useMemo } from "react";
 import { skillGroupsConfig, skillsDictionary } from "./components/SkillDetails";
-import SkillCard from "./components/SkillList";
 import { useTranslation } from "../../shared/hooks/useTranslation";
 
 const SkillsPage = () => {
-  const { t, language } = useTranslation();
+  const { t } = useTranslation();
   const strings = t("skills");
-  const groupTitles = strings?.groupTitles ?? {};
 
   useEffect(() => {
     if (strings?.documentTitle) {
@@ -14,24 +12,21 @@ const SkillsPage = () => {
     }
   }, [strings]);
 
-  const groups = useMemo(() => {
-    return skillGroupsConfig.map((group) => {
-      const title = groupTitles[group.key] ?? group.key;
-      const items = group.skillKeys
-        .map((key) => {
-          const detail = skillsDictionary[key];
-          if (!detail) return null;
-          const description =
-            detail.description?.[language] ?? detail.description?.vi ?? "";
-          return {
-            ...detail,
-            description,
-          };
-        })
-        .filter(Boolean);
-      return { title, skills: items };
-    });
-  }, [groupTitles, language]);
+  const groups = useMemo(
+    () =>
+      skillGroupsConfig.map((group) => ({
+        title: strings?.groupTitles?.[group.key] ?? group.key,
+        icons: group.skillKeys
+          .map((key) => skillsDictionary[key])
+          .filter(Boolean)
+          .map((skill) => ({
+            name: skill.name,
+            image: skill.image,
+            link: skill.link,
+          })),
+      })),
+    [strings?.groupTitles]
+  );
 
   return (
     <section className="theme-card theme-card--strong p-4 md:p-6">
@@ -52,9 +47,23 @@ const SkillsPage = () => {
             <h3 className="mb-4 text-xl font-semibold text-[var(--text-primary)]">
               {group.title}
             </h3>
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {group.skills.map((skill) => (
-                <SkillCard key={skill.name} skill={skill} />
+            <div className="grid grid-cols-3 gap-4 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8">
+              {group.icons.map((skill) => (
+                <a
+                  key={skill.name}
+                  href={skill.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex h-20 w-full items-center justify-center rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] p-3 shadow-sm transition hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <img
+                    src={skill.image}
+                    alt={skill.name}
+                    loading="lazy"
+                    className="h-full max-h-14 w-auto object-contain transition group-hover:scale-105"
+                    decoding="async"
+                  />
+                </a>
               ))}
             </div>
           </div>

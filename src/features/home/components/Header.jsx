@@ -1,17 +1,16 @@
-
-import SocialLinks from "./HeaderSocialLinks";
-import UserPresence from "./UserPresence";
+﻿import SocialLinks from "./HeaderSocialLinks";
 import DynamicText from "../../../shared/components/typography/DynamicText";
 import { useTranslation } from "../../../shared/hooks/useTranslation";
 
 const HERO_IMAGE =
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=480";
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320";
 const HERO_IMAGE_SRCSET = [
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=160 160w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=240 240w",
   "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320 320w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=480 480w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=640 640w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=400 400w",
 ].join(", ");
-const HERO_IMAGE_SIZES = "(min-width: 768px) 8rem, 28vw";
+const HERO_IMAGE_SIZES = "(min-width: 768px) 8rem, 32vw";
 
 const Header = () => {
   const { t } = useTranslation();
@@ -59,13 +58,6 @@ const Header = () => {
             <DynamicText />
           </div>
         </div>
-      </div>
-
-      <div className="rounded-2xl border border-[var(--surface-border)] bg-[var(--surface)] px-4 py-3 shadow-sm">
-        <div className="mb-3 inline-flex items-center gap-2 rounded-full bg-[var(--accent-soft)] px-4 py-1 text-xs font-semibold uppercase tracking-wide text-[var(--text-primary)]">
-          {t("header.statusLabel")}
-        </div>
-        <UserPresence />
       </div>
 
       <div className="flex flex-wrap items-center gap-3">

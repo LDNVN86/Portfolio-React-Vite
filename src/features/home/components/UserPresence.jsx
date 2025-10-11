@@ -1,9 +1,9 @@
-import axios from "axios";
-import { useEffect, useMemo, useRef, useState } from "react";
-
-import MyLocation from "../services/MyLocation";
-import MyStatus from "../services/MyStatus";
+﻿import axios from "axios";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { useAppSettings } from "../../../shared/contexts/AppSettingsContext";
+
+const MyLocation = lazy(() => import("../services/MyLocation"));
+const MyStatus = lazy(() => import("../services/MyStatus"));
 
 const WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather";
 
@@ -33,6 +33,7 @@ const UserPresence = () => {
   const [dataWeather, setDataWeather] = useState(null);
   const [elapsed, setElapsed] = useState(0);
   const pollingRef = useRef(null);
+  const idleHandleRef = useRef(null);
 
   useEffect(() => {
     if (!userId) {
@@ -52,17 +53,13 @@ const UserPresence = () => {
       try {
         const requests = [];
         if (userId) {
-          requests.push(
-            axios.get(`https://api.lanyard.rest/v1/users/${userId}`)
-          );
+          requests.push(axios.get(`https://api.lanyard.rest/v1/users/${userId}`));
         } else {
           requests.push(Promise.resolve(null));
         }
 
         if (apiKey) {
-          requests.push(
-            axios.get(buildWeatherUrl(apiKey, weatherLang))
-          );
+          requests.push(axios.get(buildWeatherUrl(apiKey, weatherLang)));
         } else {
           requests.push(Promise.resolve(null));
         }
@@ -83,15 +80,34 @@ const UserPresence = () => {
       }
     };
 
-    fetchData();
+    const startPolling = () => {
+      fetchData();
+      pollingRef.current = window.setInterval(fetchData, 60_000);
+    };
 
-    pollingRef.current = window.setInterval(fetchData, 60_000);
+    if (typeof window !== "undefined" && "requestIdleCallback" in window) {
+      idleHandleRef.current = window.requestIdleCallback(() => {
+        if (!isCancelled) startPolling();
+      }, { timeout: 2000 });
+    } else {
+      idleHandleRef.current = window.setTimeout(() => {
+        if (!isCancelled) startPolling();
+      }, 0);
+    }
 
     return () => {
       isCancelled = true;
       if (pollingRef.current) {
         window.clearInterval(pollingRef.current);
         pollingRef.current = null;
+      }
+      if (typeof window !== "undefined" && idleHandleRef.current !== null) {
+        if ("cancelIdleCallback" in window && typeof window.cancelIdleCallback === "function") {
+          window.cancelIdleCallback(idleHandleRef.current);
+        } else {
+          window.clearTimeout(idleHandleRef.current);
+        }
+        idleHandleRef.current = null;
       }
     };
   }, [userId, apiKey, weatherLang]);
@@ -120,10 +136,14 @@ const UserPresence = () => {
   return (
     <div className="flex flex-col gap-3 md:flex-row md:items-stretch md:gap-4">
       <div className="flex-1">
-        <MyStatus Status={dataUser} TimesetDate={elapsedLabel} />
+        <Suspense fallback={<div className="h-24 animate-pulse rounded-xl bg-[var(--surface)]/60" />}>
+          <MyStatus Status={dataUser} TimesetDate={elapsedLabel} />
+        </Suspense>
       </div>
       <div className="flex-1">
-        <MyLocation MyWeather={dataWeather} />
+        <Suspense fallback={<div className="h-24 animate-pulse rounded-xl bg-[var(--surface)]/60" />}>
+          <MyLocation MyWeather={dataWeather} />
+        </Suspense>
       </div>
     </div>
   );
