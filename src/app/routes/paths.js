@@ -5,6 +5,7 @@ const routes = {
   Skills: "/skills",
   Space: "/space",
   Project: "/project",
+  Blog: "/blog",
   error: "/*",
 };
 

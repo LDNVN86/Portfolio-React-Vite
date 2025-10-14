@@ -8,6 +8,7 @@ const NAV_ITEMS = [
   { key: "project", path: "/project" },
   { key: "skills", path: "/skills" },
   { key: "space", path: "/space" },
+  { key: "blog", path: "/blog" },
 ];
 
 const NavbarMenu = () => {

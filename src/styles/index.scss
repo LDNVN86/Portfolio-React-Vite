@@ -216,3 +216,34 @@ html.custom-cursor-active body label,
 html.custom-cursor-active body summary {
   cursor: pointer !important;
 }
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-soft) transparent;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--accent-soft);
+    border-radius: 999px;
+  }
+}
+
+.line-clamp-2 {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
