@@ -1,11 +1,24 @@
-﻿import { Suspense, lazy, useCallback, useEffect, useMemo, useState } from "react";
+﻿import {
+  Suspense,
+  lazy,
+  useCallback,
+  useEffect,
+  useMemo,
+  useState,
+} from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import Header from "./components/Header";
 import IntroOverlay from "./components/IntroOverlay";
 
-const AudioPrompt = lazy(() => import("../../shared/components/audio/AudioPrompt"));
-const BackToTop = lazy(() => import("../../shared/components/navigation/BackToTop"));
-const SitePreferencesPanel = lazy(() => import("../../shared/components/preferences/SitePreferences"));
+const AudioPrompt = lazy(() =>
+  import("../../shared/components/audio/AudioPrompt")
+);
+const BackToTop = lazy(() =>
+  import("../../shared/components/navigation/BackToTop")
+);
+const SitePreferencesPanel = lazy(() =>
+  import("../../shared/components/preferences/SitePreferences")
+);
 const NavbarMenu = lazy(() => import("./components/NavbarMenu"));
 const LazyUserPresence = lazy(() => import("./components/UserPresence"));
 
@@ -16,7 +29,8 @@ const HomePage = ({ children }) => {
       return { allowMotion: true, isCoarsePointer: false };
     }
     return {
-      allowMotion: !window.matchMedia("(prefers-reduced-motion: reduce)").matches,
+      allowMotion: !window.matchMedia("(prefers-reduced-motion: reduce)")
+        .matches,
       isCoarsePointer: window.matchMedia("(pointer: coarse)").matches,
     };
   });
@@ -67,7 +81,7 @@ const HomePage = ({ children }) => {
 
   const backgroundVideo = useMemo(
     () =>
-      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Intro4.webm",
+      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/videoplayback.webm",
     []
   );
   const backgroundPoster = useMemo(
@@ -79,7 +93,9 @@ const HomePage = ({ children }) => {
   return (
     <>
       <AnimatePresence>
-        {introVisible && <IntroOverlay key="intro-overlay" onOverlayEnd={handleIntroEnd} />}
+        {introVisible && (
+          <IntroOverlay key="intro-overlay" onOverlayEnd={handleIntroEnd} />
+        )}
       </AnimatePresence>
 
       <motion.div
@@ -151,7 +167,11 @@ const HomePage = ({ children }) => {
               transition={{ duration: 0.45, delay: introVisible ? 0 : 0.22 }}
               className="theme-card p-4 backdrop-blur-sm md:p-6"
             >
-              <Suspense fallback={<div className="h-32 w-full animate-pulse rounded-xl bg-[var(--surface)]/60" />}>
+              <Suspense
+                fallback={
+                  <div className="h-32 w-full animate-pulse rounded-xl bg-[var(--surface)]/60" />
+                }
+              >
                 <LazyUserPresence />
               </Suspense>
             </motion.div>
