@@ -86,7 +86,7 @@ const HomePage = ({ children }) => {
   );
   const backgroundPoster = useMemo(
     () =>
-      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=960",
+      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp",
     []
   );
 

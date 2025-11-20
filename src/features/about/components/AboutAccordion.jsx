@@ -5,9 +5,9 @@ import { AnimatePresence, motion } from "framer-motion";
 const GALLERY_IMAGE =
   "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Nekozane.jpg";
 const GALLERY_IMAGE_SRCSET = [
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Nekozane.jpg?width=480 480w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Nekozane.jpg?width=768 768w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Nekozane.jpg?width=1024 1024w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Nekozane.jpg 480w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Nekozane.jpg 768w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Nekozane.jpg 1024w",
 ].join(", ");
 const GALLERY_IMAGE_SIZES = "(min-width: 768px) 24rem, 100vw";
 

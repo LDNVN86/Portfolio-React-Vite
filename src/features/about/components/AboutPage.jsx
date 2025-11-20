@@ -3,11 +3,11 @@ import { useTranslation } from "../../../shared/hooks/useTranslation";
 import AboutAccordion from "./AboutAccordion";
 
 const JOURNEY_IMAGE =
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Elaina.jpg?width=960";
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Elaina.jpg";
 const JOURNEY_IMAGE_SRCSET = [
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Elaina.jpg?width=640 640w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Elaina.jpg?width=960 960w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/Elaina.jpg?width=1280 1280w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Elaina.jpg 640w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Elaina.jpg 960w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/Elaina.jpg 1280w",
 ].join(", ");
 const JOURNEY_IMAGE_SIZES = "(min-width: 768px) 20rem, 100vw";
 

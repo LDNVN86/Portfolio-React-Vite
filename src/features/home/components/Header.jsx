@@ -3,12 +3,12 @@ import DynamicText from "../../../shared/components/typography/DynamicText";
 import { useTranslation } from "../../../shared/hooks/useTranslation";
 
 const HERO_IMAGE =
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320";
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp";
 const HERO_IMAGE_SRCSET = [
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=160 160w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=240 240w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320 320w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=400 400w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 160w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 240w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 320w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 400w",
 ].join(", ");
 const HERO_IMAGE_SIZES = "(min-width: 768px) 8rem, 32vw";
 

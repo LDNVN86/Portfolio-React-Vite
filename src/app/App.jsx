@@ -29,7 +29,7 @@ const AppRoutes = () => {
         }
       >
         <Routes>
-          {Communities.map(({ path, component: Page, layout }, id) => {
+          {Communities.map(({ path, component: PageComponent, layout }, id) => {
             const Layout = layout === null ? Fragment : layout || HomePage;
             return (
               <Route
@@ -37,7 +37,7 @@ const AppRoutes = () => {
                 path={path}
                 element={
                   <Layout>
-                    <Page />
+                    <PageComponent />
                   </Layout>
                 }
               />

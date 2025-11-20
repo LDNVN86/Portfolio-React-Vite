@@ -3,11 +3,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useTranslation } from "../../../shared/hooks/useTranslation";
 
 const AVATAR_IMAGE =
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320";
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp";
 const AVATAR_IMAGE_SRCSET = [
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=240 240w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=320 320w",
-  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/render/image/public/ldn86dev/MonicaAva.webp?width=480 480w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 240w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 320w",
+  "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/MonicaAva.webp 480w",
 ].join(", ");
 const AVATAR_IMAGE_SIZES = "(min-width: 768px) 7rem, 28vw";
 
@@ -15,8 +15,10 @@ const getInitialDeviceProfile = () => {
   if (typeof window === "undefined") {
     return { isMobile: false, allowMotion: true };
   }
-  const isMobile = window.innerWidth <= 765 || window.matchMedia("(pointer: coarse)").matches;
-  const allowMotion = !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const isMobile =
+    window.innerWidth <= 765 || window.matchMedia("(pointer: coarse)").matches;
+  const allowMotion = !window.matchMedia("(prefers-reduced-motion: reduce)")
+    .matches;
   return { isMobile, allowMotion };
 };
 
@@ -30,7 +32,9 @@ const IntroOverlay = ({ onOverlayEnd }) => {
     const index = Math.floor(Math.random() * quotes.length);
     return quotes[index] ?? "";
   });
-  const [{ isMobile, allowMotion }, setDeviceProfile] = useState(getInitialDeviceProfile);
+  const [{ isMobile, allowMotion }, setDeviceProfile] = useState(
+    getInitialDeviceProfile
+  );
   const videoRef = useRef(null);
 
   const handleDismiss = useCallback(() => {
@@ -114,7 +118,11 @@ const IntroOverlay = ({ onOverlayEnd }) => {
 
   useEffect(() => {
     const handleKeyUp = (event) => {
-      if (event.key === "Enter" || event.key === " " || event.key === "Escape") {
+      if (
+        event.key === "Enter" ||
+        event.key === " " ||
+        event.key === "Escape"
+      ) {
         event.preventDefault();
         handleDismiss();
       }
