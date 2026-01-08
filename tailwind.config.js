@@ -1,5 +1,4 @@
 /** @type {import('tailwindcss').Config} */
-import { theme as resolveTheme } from "tailwindcss/defaultTheme";
 
 export default {
   content: ["./index.html", "./src/**/*.{vue,js,ts,jsx,tsx}"],

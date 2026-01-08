@@ -37,9 +37,17 @@ const IntroOverlay = ({ onOverlayEnd }) => {
   );
   const videoRef = useRef(null);
 
+  // Check sessionStorage on mount - skip intro if already seen
+  useEffect(() => {
+    if (typeof window !== "undefined" && sessionStorage.getItem("introSeen")) {
+      onOverlayEnd?.();
+    }
+  }, [onOverlayEnd]);
+
   const handleDismiss = useCallback(() => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0, behavior: "smooth" });
+      sessionStorage.setItem("introSeen", "true");
     }
     onOverlayEnd?.();
   }, [onOverlayEnd]);

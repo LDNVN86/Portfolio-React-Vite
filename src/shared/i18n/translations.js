@@ -73,6 +73,8 @@ const translations = {
       dynamicPhrases: motivationalPhrases.vi,
       statusLabel: "Thanh Trạng Thái",
       locationLabel: "Bình Thuận, Việt Nam!!",
+      viewProjects: "Xem Dự Án",
+      downloadCV: "Tải CV",
     },
     audio: {
       prompt: "Bạn có muốn bật một playlist nhẹ nhàng trong lúc khám phá?",
@@ -153,7 +155,13 @@ const translations = {
     project: {
       documentTitle: "Dự Án Mà Tôi Từng Làm",
       title: "Project 📽️",
-      description: "Tôi lười kéo dự án GitHub về đây.",
+      description:
+        "Những dự án mình đã xây dựng trong hành trình học tập và phát triển.",
+      featured: "Nổi bật",
+      liveDemo: "Xem Demo",
+      viewCode: "Backend",
+      frontend: "Frontend",
+      viewAllOnGithub: "Xem tất cả trên GitHub",
     },
     blog: {
       documentTitle: "Blog Cá Nhân",
@@ -227,7 +235,8 @@ const translations = {
     skills: {
       documentTitle: "Kỹ Năng Của Tôi",
       title: "Skill 🥏",
-      intro: "Một bảng tóm tắt các công nghệ mình thường sử dụng, được nhóm theo vai trò trong dự án.",
+      intro:
+        "Một bảng tóm tắt các công nghệ mình thường sử dụng, được nhóm theo vai trò trong dự án.",
       learnMore: "Tìm hiểu thêm",
       groupTitles: {
         programmingLanguages: "Ngôn ngữ lập trình",
@@ -282,6 +291,8 @@ const translations = {
       dynamicPhrases: motivationalPhrases.en,
       statusLabel: "Status tracker",
       locationLabel: "Binh Thuan, Viet Nam!!",
+      viewProjects: "View Projects",
+      downloadCV: "Download CV",
     },
     audio: {
       prompt: "Want to play a chill playlist while you explore?",
@@ -363,7 +374,13 @@ const translations = {
     project: {
       documentTitle: "Projects I've Built",
       title: "Project 📽️",
-      description: "I was too lazy to pull my GitHub projects here (for now).",
+      description:
+        "Projects I've built throughout my learning and development journey.",
+      featured: "Featured",
+      liveDemo: "Live Demo",
+      viewCode: "Backend",
+      frontend: "Frontend",
+      viewAllOnGithub: "View all on GitHub",
     },
     blog: {
       documentTitle: "Personal Blog",
@@ -437,7 +454,8 @@ const translations = {
     skills: {
       documentTitle: "My Skills",
       title: "Skill 🥏",
-      intro: "A curated snapshot of the technologies I use most often, grouped by expertise.",
+      intro:
+        "A curated snapshot of the technologies I use most often, grouped by expertise.",
       learnMore: "Learn more",
       groupTitles: {
         programmingLanguages: "Programming Languages",

@@ -2,6 +2,7 @@ import React, { Fragment, Suspense } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import "../styles/App.scss";
 import ScrollToTop from "../shared/components/navigation/ScrollToTop";
+import ErrorBoundary from "../shared/components/ErrorBoundary";
 
 import HomePage from "../features/home";
 import Communities from "./routes";
@@ -51,9 +52,11 @@ const AppRoutes = () => {
 
 function App() {
   return (
-    <AppSettingsProvider>
-      <AppRoutes />
-    </AppSettingsProvider>
+    <ErrorBoundary>
+      <AppSettingsProvider>
+        <AppRoutes />
+      </AppSettingsProvider>
+    </ErrorBoundary>
   );
 }
 

@@ -1,7 +1,15 @@
 export const skillGroupsConfig = [
   {
     key: "programmingLanguages",
-    skillKeys: ["javascript", "typescript", "go", "cpp", "java", "html5", "css3"],
+    skillKeys: [
+      "javascript",
+      "typescript",
+      "go",
+      "cpp",
+      "java",
+      "html5",
+      "css3",
+    ],
   },
   {
     key: "frontendLibraries",
@@ -28,8 +36,10 @@ export const skillGroupsConfig = [
 export const skillsDictionary = {
   javascript: {
     name: "JavaScript",
-    image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png",
     link: "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
+    proficiency: 85,
     badge: {
       vi: "Ngôn ngữ động",
       en: "Dynamic language",
@@ -41,8 +51,10 @@ export const skillsDictionary = {
   },
   typescript: {
     name: "TypeScript",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/4/4c/Typescript_logo_2020.svg",
     link: "https://www.typescriptlang.org/",
+    proficiency: 80,
     badge: {
       vi: "JavaScript + Types",
       en: "Typed JavaScript",
@@ -56,6 +68,7 @@ export const skillsDictionary = {
     name: "Go",
     image: "https://blog.golang.org/go-brand/Go-Logo/PNG/Go-Logo_Blue.png",
     link: "https://go.dev/",
+    proficiency: 60,
     badge: {
       vi: "Ngôn ngữ biên dịch",
       en: "Compiled language",
@@ -67,7 +80,8 @@ export const skillsDictionary = {
   },
   cpp: {
     name: "C/C++",
-    image: "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg",
     link: "https://en.cppreference.com/w/",
     badge: {
       vi: "Hiệu năng cao",
@@ -80,7 +94,8 @@ export const skillsDictionary = {
   },
   java: {
     name: "Java",
-    image: "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/en/3/30/Java_programming_language_logo.svg",
     link: "https://www.java.com/",
     badge: {
       vi: "OOP",
@@ -93,7 +108,8 @@ export const skillsDictionary = {
   },
   html5: {
     name: "HTML5",
-    image: "https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/3/38/HTML5_Badge.svg",
     link: "https://developer.mozilla.org/en-US/docs/Web/HTML",
     badge: {
       vi: "Markup",
@@ -121,6 +137,7 @@ export const skillsDictionary = {
     name: "React",
     image: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg",
     link: "https://react.dev/",
+    proficiency: 85,
     badge: {
       vi: "UI Library",
       en: "UI Library",
@@ -132,8 +149,10 @@ export const skillsDictionary = {
   },
   next: {
     name: "Next.js",
-    image: "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
     link: "https://nextjs.org/",
+    proficiency: 80,
     badge: {
       vi: "Fullstack React",
       en: "Fullstack React",
@@ -145,7 +164,8 @@ export const skillsDictionary = {
   },
   tailwind: {
     name: "Tailwind CSS",
-    image: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg",
     link: "https://tailwindcss.com/",
     badge: {
       vi: "Utility-first",
@@ -158,7 +178,8 @@ export const skillsDictionary = {
   },
   sass: {
     name: "Sass",
-    image: "https://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/9/96/Sass_Logo_Color.svg",
     link: "https://sass-lang.com/",
     badge: {
       vi: "Preprocessor",
@@ -173,6 +194,7 @@ export const skillsDictionary = {
     name: "Node.js",
     image: "https://nodejs.org/static/images/logo.svg",
     link: "https://nodejs.org/",
+    proficiency: 75,
     badge: {
       vi: "Runtime",
       en: "Runtime",
@@ -186,6 +208,7 @@ export const skillsDictionary = {
     name: "NestJS",
     image: "https://nestjs.com/img/logo-small.svg",
     link: "https://nestjs.com/",
+    proficiency: 70,
     badge: {
       vi: "Node Framework",
       en: "Node Framework",
@@ -210,7 +233,8 @@ export const skillsDictionary = {
   },
   spring: {
     name: "Spring Boot",
-    image: "https://upload.wikimedia.org/wikipedia/commons/4/44/Spring_Framework_Logo_2018.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/4/44/Spring_Framework_Logo_2018.svg",
     link: "https://spring.io/projects/spring-boot",
     badge: {
       vi: "Java Backend",
@@ -236,8 +260,10 @@ export const skillsDictionary = {
   },
   mongodb: {
     name: "MongoDB",
-    image: "https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png",
+    image:
+      "https://webassets.mongodb.com/_com_assets/cms/mongodb_logo1-76twgcu2dm.png",
     link: "https://www.mongodb.com/",
+    proficiency: 65,
     badge: {
       vi: "NoSQL",
       en: "NoSQL",
@@ -262,8 +288,10 @@ export const skillsDictionary = {
   },
   postgresql: {
     name: "PostgreSQL",
-    image: "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
     link: "https://www.postgresql.org/",
+    proficiency: 70,
     badge: {
       vi: "SQL nâng cao",
       en: "Advanced SQL",
