@@ -1,83 +1,103 @@
 # Portfolio cá nhân (React + Vite)
 
-Đây là website giới thiệu bản thân và những dự án nhỏ của Seno Impotent. Mình dựng bằng React + Vite, tập trung vào trải nghiệm mượt, đa ngôn ngữ và có chút “vibe” cá nhân (nhạc, hiệu ứng, status Discord, thời tiết).
+Đây là website giới thiệu bản thân và những dự án của Seno Impotent. Mình dựng bằng React + Vite, tập trung vào trải nghiệm mượt, đa ngôn ngữ và có chút "vibe" cá nhân (nhạc, hiệu ứng, status Discord, thời tiết).
 
-## Có gì bên trong?
-- Landing nhiều hiệu ứng: intro overlay, video nền, gợi ý bật nhạc.
-- Widget trạng thái Discord (Lanyard) + Spotify, kèm thời tiết OpenWeather.
-- Đa ngôn ngữ vi/en, nhớ theme sáng/tối và màu nhấn; tôn trọng `prefers-reduced-motion`.
-- Blog đọc Markdown, tự tính thời gian đọc, phân trang, định dạng ngày theo locale.
-- Các trang: About, Skills (lưới icon), Games, Workspace, Projects, Blog, và trang 404 riêng.
-- Responsive với Tailwind + SCSS, animation bằng Framer Motion, tooltip/overlay gọn gàng.
+## ✨ Tính năng chính
 
-## Stack mình dùng
-- React 19, Vite 6, React Router 7.
-- TailwindCSS 3 + SCSS, Framer Motion, React Icons, Tippy, React Color.
-- `gray-matter` đọc Markdown, axios gọi API Lanyard/OpenWeather.
-- Supabase làm kho tĩnh và (tuỳ chọn) client tại `src/lib/supabaseClient.js`.
-- Node.js 20.x (đã khai báo trong `package.json`).
+- **Landing hiệu ứng**: Intro overlay (skip bằng sessionStorage), video nền, gợi ý bật nhạc
+- **Hero CTA Buttons**: "Xem Dự Án" và "Tải CV" nổi bật trên header
+- **Widget trạng thái**: Discord (Lanyard) + Spotify, kèm thời tiết OpenWeather
+- **Đa ngôn ngữ**: vi/en, nhớ theme sáng/tối và màu nhấn; tôn trọng `prefers-reduced-motion`
+- **Skill Progress Bars**: Hiển thị % thành thạo từng skill với animation
+- **Project Modal**: Click vào card để xem chi tiết project với Portal fullscreen
+- **Blog Markdown**: Tự tính thời gian đọc, phân trang, định dạng ngày theo locale
+- **Responsive**: Tailwind + SCSS, animation với Framer Motion
 
-## Cấu trúc chính
+## 🚀 Featured Projects
+
+| Project              | Description                         | Tech Stack                                           |
+| -------------------- | ----------------------------------- | ---------------------------------------------------- |
+| **Shop Acc Game**    | Hệ thống bán tài khoản game tự động | Next.js, NestJS, PostgreSQL, Socket.io, PayOS        |
+| **Muciii Bio**       | Trang bio link cho khách hàng       | Next.js, React, TailwindCSS, Framer Motion, Anime.js |
+| **Video Downloader** | Tải video YouTube, TikTok, Facebook | NestJS, Next.js, yt-dlp                              |
+| **NekozaneDex**      | Web đọc truyện tranh                | Go, Gin, Next.js, PostgreSQL                         |
+| **Portfolio**        | Website này                         | React, Vite, TailwindCSS, Framer Motion              |
+
+## 🛠 Stack mình dùng
+
+- React 19, Vite 6, React Router 7
+- TailwindCSS 3 + SCSS, Framer Motion, React Icons
+- `gray-matter` đọc Markdown, axios gọi API Lanyard/OpenWeather
+- Supabase làm kho tĩnh
+- Node.js 20.x
+
+## 📁 Cấu trúc chính
+
 ```
 src/
   app/           # Router + layout
   features/      # Trang/section (about, blog, game, home, project, skills, space, error)
-  shared/        # components, contexts (AppSettingsContext), hooks (useTranslation), i18n/translations
-  content/blog/  # Bài Markdown + loader posts.js
+  shared/        # components, contexts, hooks (useTranslation), i18n/translations
+  content/       # Blog Markdown + Projects data
   styles/        # SCSS + entry Tailwind
-public/          # Static assets
-dist/            # Kết quả build (npm run build)
 ```
 
-## Chạy nhanh
-1) Cài dependencies:
+## ⚡ Chạy nhanh
+
 ```bash
+# 1. Cài dependencies
 npm install
-```
-2) Tạo file môi trường và điền giá trị:
-```bash
-cp .env.example .env   # Windows có thể dùng: copy .env.example .env
-```
-3) Chạy dev server:
-```bash
+
+# 2. Tạo file môi trường
+cp .env.example .env
+
+# 3. Chạy dev server
 npm run dev -- --host
-```
-4) Lệnh khác:
-```bash
-npm run build    # build ra dist/
-npm run preview  # xem thử bản build
-npm run lint     # eslint
+
+# 4. Build production
+npm run build
 ```
 
-## Biến môi trường
-Đặt trong `.env` (được Vite expose qua `import.meta.env`):
+## 🔑 Biến môi trường
+
+```env
+VITE_OPENWEATHER_API_KEY=your_openweather_key
+VITE_UIDDIS_UserID_API_Lanyard=your_discord_user_id
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
 ```
-VITE_OPENWEATHER_API_KEY=your_openweather_key         # Widget thời tiết
-VITE_UIDDIS_UserID_API_Lanyard=your_discord_user_id   # Widget trạng thái Discord
-VITE_SUPABASE_URL=https://your-project.supabase.co    # Tuỳ chọn cho Supabase client
-VITE_SUPABASE_ANON_KEY=your_supabase_anon_key         # Tuỳ chọn cho Supabase client
+
+## 📝 Thêm nội dung
+
+### Blog
+
+Thêm `.md` vào `src/content/blog/`:
+
+```md
+---
+id: sample-post
+locale: vi
+title: Tiêu đề bài viết
+excerpt: Tóm tắt ngắn
+publishedAt: "2025-01-01"
+tags: ["note", "life"]
+---
+
+Nội dung chính...
 ```
 
-## Chỉnh nội dung
-- Blog: thêm `.md` trong `src/content/blog/`, frontmatter mẫu:
-  ```md
-  ---
-  id: sample-post
-  locale: vi
-  title: Tiêu đề bài viết
-  excerpt: Tóm tắt ngắn
-  publishedAt: "2025-01-01"
-  tags: ["note", "life"]
-  ---
-  Nội dung chính...
-  ```
-  Loader `src/content/blog/posts.js` sẽ tự tính số từ, thời gian đọc, phân trang.
-- Chuỗi giao diện: cập nhật `src/shared/i18n/translations.js` cho cả vi/en.
+### Projects
 
-## Deploy
-- Build bằng `npm run build`, deploy static lên Vercel/Netlify/... File `vercel.json` đã cấu hình rewrite cho SPA.
-- Đừng quên set biến môi trường cho OpenWeather/Lanyard/Supabase ở môi trường deploy.
+Cập nhật `src/content/projects/projects.js`
 
-## Ghi chú
-- Lint: xem `eslint.config.js`.
-- Chưa có license; thêm nếu muốn open-source.
+### Translations
+
+Cập nhật `src/shared/i18n/translations.js` cho vi/en
+
+## 🚀 Deploy
+
+Build bằng `npm run build`, deploy static lên Vercel/Netlify. File `vercel.json` đã cấu hình rewrite cho SPA.
+
+## 📄 License
+
+Chưa có license; thêm nếu muốn open-source.

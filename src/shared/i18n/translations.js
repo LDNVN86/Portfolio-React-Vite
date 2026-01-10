@@ -158,7 +158,7 @@ const translations = {
       description:
         "Những dự án mình đã xây dựng trong hành trình học tập và phát triển.",
       featured: "Nổi bật",
-      liveDemo: "Xem Demo",
+      liveDemo: "Xem Sản Phẩm",
       viewCode: "Backend",
       frontend: "Frontend",
       viewAllOnGithub: "Xem tất cả trên GitHub",
@@ -377,7 +377,7 @@ const translations = {
       description:
         "Projects I've built throughout my learning and development journey.",
       featured: "Featured",
-      liveDemo: "Live Demo",
+      liveDemo: "View Product",
       viewCode: "Backend",
       frontend: "Frontend",
       viewAllOnGithub: "View all on GitHub",

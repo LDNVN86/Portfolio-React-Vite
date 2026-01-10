@@ -5,6 +5,32 @@
 
 export const projects = [
   {
+    id: "shop-acc-game",
+    title: {
+      vi: "Shop Acc Game - Hệ Thống Bán Tài Khoản",
+      en: "Game Account Shop - E-commerce Platform",
+    },
+    description: {
+      vi: "Hệ thống bán tài khoản game tự động với thanh toán PayOS, realtime WebSocket, quản lý đơn hàng, hệ thống CTV. Fullstack với Next.js 16 và NestJS.",
+      en: "Automated game account selling platform with PayOS payment, realtime WebSocket, order management, and affiliate system. Built with Next.js 16 and NestJS.",
+    },
+    thumbnail:
+      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/projects/shop-acc-preview.webp",
+    techStack: [
+      "Next.js",
+      "NestJS",
+      "PostgreSQL",
+      "Socket.io",
+      "PayOS",
+      "TailwindCSS",
+    ],
+    liveUrl: "https://clonegiare.io.vn/",
+    githubUrl: null,
+    featured: true,
+    stars: 0,
+    category: "fullstack",
+  },
+  {
     id: "yt-dlp",
     title: {
       vi: "Video Downloader (YT-DLP)",
@@ -68,6 +94,25 @@ export const projects = [
     githubUrl: "https://github.com/LDNVN86/Portfolio-React-Vite",
     featured: true,
     stars: 1,
+    category: "frontend",
+  },
+  {
+    id: "muciii-bio",
+    title: {
+      vi: "Muciii Bio - Trang Giới Thiệu",
+      en: "Muciii Bio - Link in Bio",
+    },
+    description: {
+      vi: "Trang bio link phong cách Linktree cho khách hàng. Hiển thị social links, thống kê bán hàng, hỗ trợ dark/light mode và tuỳ chỉnh theme màu sắc.",
+      en: "A Linktree-style bio link page for a client. Features social links, sales statistics, dark/light mode toggle, and customizable color themes.",
+    },
+    thumbnail:
+      "https://omghmofravozvmqvjtns.supabase.co/storage/v1/object/public/ldn86dev/projects/muciii-bio-preview.webp",
+    techStack: ["Next.js", "React", "TailwindCSS", "Framer Motion", "Anime.js"],
+    liveUrl: "https://muciii-bio.vercel.app/",
+    githubUrl: null,
+    featured: false,
+    stars: 0,
     category: "frontend",
   },
 ];
