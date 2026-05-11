@@ -129,12 +129,32 @@ const ProjectModal = ({ project, isOpen, onClose, strings }) => {
                     </span>
                   )}
                 </div>
-                {project.featured && (
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-color)] px-3 py-1 text-xs font-semibold text-[var(--accent-contrast)]">
-                    <FiStar className="text-xs" />
-                    {strings?.featured ?? "Featured"}
-                  </span>
-                )}
+                <div className="flex flex-wrap items-center gap-2">
+                  {project.featured && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-[var(--accent-color)] px-3 py-1 text-xs font-semibold text-[var(--accent-contrast)]">
+                      <FiStar className="text-xs" />
+                      {strings?.featured ?? "Featured"}
+                    </span>
+                  )}
+                  {project.status === "production" && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/15 px-3 py-1 text-xs font-semibold text-emerald-500">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500" />
+                      {strings?.status?.production ?? "Production"}
+                    </span>
+                  )}
+                  {project.status === "wip" && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-amber-500/30 bg-amber-500/15 px-3 py-1 text-xs font-semibold text-amber-500">
+                      <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-amber-500" />
+                      {strings?.status?.wip ?? "Work in progress"}
+                    </span>
+                  )}
+                  {project.status === "archived" && (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-zinc-500/30 bg-zinc-500/15 px-3 py-1 text-xs font-semibold text-zinc-400">
+                      <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
+                      {strings?.status?.archived ?? "Archived"}
+                    </span>
+                  )}
+                </div>
               </div>
 
               {/* Description */}

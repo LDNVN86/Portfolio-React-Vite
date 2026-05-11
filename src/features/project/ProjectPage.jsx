@@ -36,6 +36,35 @@ const TechBadge = ({ tech }) => (
   </span>
 );
 
+const STATUS_STYLES = {
+  production: {
+    classes:
+      "bg-emerald-500/15 text-emerald-500 border border-emerald-500/30",
+    dot: "bg-emerald-500 animate-pulse",
+  },
+  wip: {
+    classes: "bg-amber-500/15 text-amber-500 border border-amber-500/30",
+    dot: "bg-amber-500 animate-pulse",
+  },
+  archived: {
+    classes: "bg-zinc-500/15 text-zinc-400 border border-zinc-500/30",
+    dot: "bg-zinc-400",
+  },
+};
+
+const StatusBadge = ({ status, label }) => {
+  const style = STATUS_STYLES[status];
+  if (!style || !label) return null;
+  return (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ${style.classes}`}
+    >
+      <span className={`h-1.5 w-1.5 rounded-full ${style.dot}`} />
+      {label}
+    </span>
+  );
+};
+
 const ProjectCard = ({ project, strings, onClick }) => {
   const hasLiveUrl = Boolean(project.liveUrl);
   const hasGithub = Boolean(project.githubUrl);
@@ -68,13 +97,21 @@ const ProjectCard = ({ project, strings, onClick }) => {
           <FiCode className="text-4xl text-[var(--accent-color)]" />
         </div>
 
-        {/* Featured badge */}
-        {project.featured && (
-          <span className="absolute left-3 top-3 inline-flex items-center gap-1 rounded-full bg-[var(--accent-color)] px-2.5 py-1 text-xs font-semibold text-[var(--accent-contrast)]">
-            <FiStar className="text-xs" />
-            {strings?.featured ?? "Featured"}
-          </span>
-        )}
+        {/* Featured + Status badges */}
+        <div className="absolute left-3 top-3 flex flex-wrap items-center gap-1.5">
+          {project.featured && (
+            <span className="inline-flex items-center gap-1 rounded-full bg-[var(--accent-color)] px-2.5 py-1 text-xs font-semibold text-[var(--accent-contrast)]">
+              <FiStar className="text-xs" />
+              {strings?.featured ?? "Featured"}
+            </span>
+          )}
+          {project.status && (
+            <StatusBadge
+              status={project.status}
+              label={strings?.status?.[project.status]}
+            />
+          )}
+        </div>
         {/* Stars */}
         {project.stars > 0 && (
           <span className="absolute right-3 top-3 inline-flex items-center gap-1 rounded-full bg-[var(--surface-strong)] px-2 py-1 text-xs font-medium text-[var(--text-primary)]">

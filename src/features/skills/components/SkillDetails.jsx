@@ -17,15 +17,30 @@ export const skillGroupsConfig = [
   },
   {
     key: "backendFrameworks",
-    skillKeys: ["nodejs", "nest", "express", "spring", "gorillaMux"],
+    skillKeys: [
+      "gin",
+      "fiber",
+      "nodejs",
+      "nest",
+      "express",
+      "spring",
+    ],
   },
   {
     key: "databases",
-    skillKeys: ["mongodb", "mysql", "postgresql"],
+    skillKeys: ["postgresql", "redis", "mongodb", "mysql"],
+  },
+  {
+    key: "messagingInfra",
+    skillKeys: ["centrifugo", "socketio", "kafka"],
   },
   {
     key: "devopsTools",
-    skillKeys: ["linux", "ubuntu"],
+    skillKeys: ["docker", "cloudflare", "githubActions", "linux", "ubuntu"],
+  },
+  {
+    key: "aiTooling",
+    skillKeys: ["claudeCode", "cursor", "copilot"],
   },
   {
     key: "tooling",
@@ -68,14 +83,14 @@ export const skillsDictionary = {
     name: "Go",
     image: "https://blog.golang.org/go-brand/Go-Logo/PNG/Go-Logo_Blue.png",
     link: "https://go.dev/",
-    proficiency: 60,
+    proficiency: 80,
     badge: {
-      vi: "Ngôn ngữ biên dịch",
-      en: "Compiled language",
+      vi: "Ngôn ngữ chính cho backend",
+      en: "Primary backend language",
     },
     description: {
-      vi: "Go (Golang) nổi bật với tốc độ, concurrency đơn giản và hệ sinh thái microservices.",
-      en: "Go (Golang) excels at performance, straightforward concurrency, and microservices.",
+      vi: "Ngôn ngữ backend chính cho cả Tavigo (Go 1.25 + Gin) và EsimVietNam (Go + Fiber + sqlc). Daily stack: pgx v5, zap/zerolog, goose, errgroup, validator/v10, prometheus/client_golang.",
+      en: "Primary backend language for both Tavigo (Go 1.25 + Gin) and EsimVietNam (Go + Fiber + sqlc). Daily stack: pgx v5, zap/zerolog, goose, errgroup, validator/v10, prometheus/client_golang.",
     },
   },
   cpp: {
@@ -148,18 +163,18 @@ export const skillsDictionary = {
     },
   },
   next: {
-    name: "Next.js",
+    name: "Next.js 16",
     image:
       "https://upload.wikimedia.org/wikipedia/commons/8/8e/Nextjs-logo.svg",
     link: "https://nextjs.org/",
-    proficiency: 80,
+    proficiency: 85,
     badge: {
       vi: "Fullstack React",
       en: "Fullstack React",
     },
     description: {
-      vi: "Framework React hỗ trợ SSR, SSG, routing mạnh mẽ và tối ưu SEO tự động.",
-      en: "React framework providing SSR, SSG, powerful routing, and automatic SEO optimisations.",
+      vi: "Next.js 16.2 + React 19.2 — App Router, RSC, Server Actions. Tavigo có 3 app riêng (USER · ADMIN turbopack · AFF), mỗi app tự BFF forward cookie httponly tới BE. Stack đi kèm: @base-ui/react + radix-ui, shadcn 4, dnd-kit, react-hook-form + zod.",
+      en: "Next.js 16.2 + React 19.2 — App Router, RSC, Server Actions. Tavigo runs three separate apps (USER · ADMIN turbopack · AFF), each with its own BFF forwarding httponly cookies to the BE. Companion stack: @base-ui/react + radix-ui, shadcn 4, dnd-kit, react-hook-form + zod.",
     },
   },
   tailwind: {
@@ -194,7 +209,7 @@ export const skillsDictionary = {
     name: "Node.js",
     image: "https://nodejs.org/static/images/logo.svg",
     link: "https://nodejs.org/",
-    proficiency: 75,
+    proficiency: 80,
     badge: {
       vi: "Runtime",
       en: "Runtime",
@@ -208,7 +223,7 @@ export const skillsDictionary = {
     name: "NestJS",
     image: "https://nestjs.com/img/logo-small.svg",
     link: "https://nestjs.com/",
-    proficiency: 70,
+    proficiency: 75,
     badge: {
       vi: "Node Framework",
       en: "Node Framework",
@@ -231,6 +246,64 @@ export const skillsDictionary = {
       en: "Minimal, battle-tested web framework for building REST APIs on Node.js.",
     },
   },
+  gin: {
+    name: "Gin",
+    image:
+      "https://raw.githubusercontent.com/gin-gonic/logo/master/color.png",
+    link: "https://gin-gonic.com/",
+    proficiency: 80,
+    badge: {
+      vi: "Go Web Framework",
+      en: "Go Web Framework",
+    },
+    description: {
+      vi: "Framework HTTP chính của Tavigo — modular monolith 60+ packages, middleware chain RequestID → Logger → Recovery → CORS → auth gates, kèm validator/v10.",
+      en: "Primary HTTP framework for Tavigo — a 60+ package modular monolith with a RequestID → Logger → Recovery → CORS → auth middleware chain plus validator/v10.",
+    },
+  },
+  fiber: {
+    name: "Fiber",
+    image: "https://docs.gofiber.io/img/logo.svg",
+    link: "https://gofiber.io/",
+    proficiency: 75,
+    badge: {
+      vi: "Go Web Framework",
+      en: "Go Web Framework",
+    },
+    description: {
+      vi: "Framework Go hiệu năng cao xây trên fasthttp — backbone của EsimVietNam (B2B đại lý), kết hợp pgx + sqlc cho type-safe SQL.",
+      en: "High-performance Go framework on top of fasthttp — backbone of EsimVietNam (B2B agent network), paired with pgx + sqlc for type-safe SQL.",
+    },
+  },
+  centrifugo: {
+    name: "Centrifugo",
+    image:
+      "https://avatars.githubusercontent.com/u/8636696?s=200&v=4",
+    link: "https://centrifugal.dev/",
+    proficiency: 70,
+    badge: {
+      vi: "Realtime / PubSub",
+      en: "Realtime / PubSub",
+    },
+    description: {
+      vi: "Realtime server cho EsimVietNam — push balance/inventory updates cho đại lý qua centrifuge-js. Chọn thay Socket.io vì scale ngang built-in, JWT auth native, channel namespaces.",
+      en: "Realtime server for EsimVietNam — pushing balance/inventory updates to agents via centrifuge-js. Picked over Socket.io for built-in horizontal scaling, native JWT auth, and channel namespaces.",
+    },
+  },
+  socketio: {
+    name: "Socket.io",
+    image: "https://socket.io/images/logo.svg",
+    link: "https://socket.io/",
+    proficiency: 70,
+    badge: {
+      vi: "Realtime",
+      en: "Realtime",
+    },
+    description: {
+      vi: "Thư viện realtime bidirectional dùng ở Shop Acc Game — live order status, notification, chat. Đối tác bên Node/NestJS.",
+      en: "Bidirectional realtime library used on Shop Acc Game — live order status, notifications, chat. Pairs with the Node/NestJS stack.",
+    },
+  },
   spring: {
     name: "Spring Boot",
     image:
@@ -243,19 +316,6 @@ export const skillsDictionary = {
     description: {
       vi: "Nền tảng Java mạnh mẽ tạo microservice, tích hợp tốt với Spring Ecosystem.",
       en: "Powerful Java platform for building microservices with tight Spring ecosystem integration.",
-    },
-  },
-  gorillaMux: {
-    name: "Gorilla Mux",
-    image: "https://avatars.githubusercontent.com/u/489566?s=200&v=4",
-    link: "https://github.com/gorilla/mux",
-    badge: {
-      vi: "Go Router",
-      en: "Go Router",
-    },
-    description: {
-      vi: "Router HTTP linh hoạt trong Go với middleware, route matching mạnh mẽ.",
-      en: "Idiomatic Go HTTP router featuring expressive routing and middleware support.",
     },
   },
   mongodb: {
@@ -287,18 +347,92 @@ export const skillsDictionary = {
     },
   },
   postgresql: {
-    name: "PostgreSQL",
+    name: "PostgreSQL 16",
     image:
       "https://upload.wikimedia.org/wikipedia/commons/2/29/Postgresql_elephant.svg",
     link: "https://www.postgresql.org/",
-    proficiency: 70,
+    proficiency: 80,
     badge: {
-      vi: "SQL nâng cao",
-      en: "Advanced SQL",
+      vi: "SQL chính + pgvector",
+      en: "Primary SQL + pgvector",
     },
     description: {
-      vi: "CSDL quan hệ mạnh mẽ với JSONB, CTE và tính năng mở rộng phong phú.",
-      en: "Robust relational database with JSONB, CTEs, and extensive extension support.",
+      vi: "CSDL chính cho Tavigo/EsimVietNam — Postgres 16 + pgvector (chuẩn bị phase AI/RAG), uuid_v7 custom function, goose migrations (~91 file), pgx v5 + sqlc cho type-safe SQL, extensions pgcrypto/citext/btree_gist/btree_gin.",
+      en: "Primary DB for Tavigo/EsimVietNam — Postgres 16 + pgvector (prepping for AI/RAG), custom uuid_v7 function, ~91 goose migrations, pgx v5 + sqlc for type-safe SQL, extensions pgcrypto/citext/btree_gist/btree_gin.",
+    },
+  },
+  redis: {
+    name: "Redis 7",
+    image: "https://cdn.worldvectorlogo.com/logos/redis.svg",
+    link: "https://redis.io/",
+    proficiency: 75,
+    badge: {
+      vi: "Cache · Rate-limit · Lock",
+      en: "Cache · Rate-limit · Lock",
+    },
+    description: {
+      vi: "Use cases hàng ngày: rate-limit per IP/agent (TTL 60s), idempotency cache (24h), wallet balance cache (30s), inventory count cache (10s), JWT blacklist, distributed lock, admin session 7d, catalog cache + sync state.",
+      en: "Daily use cases: rate-limit per IP/agent (60s TTL), idempotency cache (24h), wallet balance cache (30s), inventory count cache (10s), JWT blacklist, distributed locks, 7-day admin sessions, catalog cache + sync state.",
+    },
+  },
+  kafka: {
+    name: "Apache Kafka",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/0/05/Apache_kafka.svg",
+    link: "https://kafka.apache.org/",
+    proficiency: 60,
+    badge: {
+      vi: "Event Streaming",
+      en: "Event Streaming",
+    },
+    description: {
+      vi: "Event streaming cho integration events & side effects — nằm trong target architecture của Tavigo (modular monolith), đang là nền tảng kiến thức để mở rộng khi tách bounded context.",
+      en: "Event streaming for integration events & side effects — part of Tavigo's modular-monolith target architecture; foundation knowledge for expanding bounded contexts later.",
+    },
+  },
+  docker: {
+    name: "Docker",
+    image:
+      "https://www.docker.com/wp-content/uploads/2022/03/Moby-logo.png",
+    link: "https://www.docker.com/",
+    proficiency: 75,
+    badge: {
+      vi: "Container",
+      en: "Container",
+    },
+    description: {
+      vi: "Đóng gói service, compose môi trường dev, base image cho deployment Production.",
+      en: "Packaging services, composing dev environments, base images for production deployments.",
+    },
+  },
+  cloudflare: {
+    name: "Cloudflare",
+    image:
+      "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cloudflare_Logo.svg",
+    link: "https://www.cloudflare.com/",
+    proficiency: 70,
+    badge: {
+      vi: "CDN / Edge",
+      en: "CDN / Edge",
+    },
+    description: {
+      vi: "Cloudflare Turnstile (anti-bot cho register/login/forgot/reset) + R2 (S3-compatible storage, upload avatar/banner/QR/invoice qua aws-sdk-go-v2) + DNS/CDN cho Tavigo.",
+      en: "Cloudflare Turnstile (anti-bot for register/login/forgot/reset) + R2 (S3-compatible storage, uploads avatars/banners/QRs/invoices via aws-sdk-go-v2) + DNS/CDN for Tavigo.",
+    },
+  },
+  githubActions: {
+    name: "GitHub Actions",
+    image:
+      "https://avatars.githubusercontent.com/u/44036562?s=200&v=4",
+    link: "https://github.com/features/actions",
+    proficiency: 75,
+    badge: {
+      vi: "CI / CD",
+      en: "CI / CD",
+    },
+    description: {
+      vi: "CI/CD pipeline cho EsimVietNam: lint + test Go/Node, build Docker image, deploy lên VPS qua SSH. Secrets quản lý qua GH Actions Secrets (chỉ SSH key, không đẩy app secret).",
+      en: "CI/CD pipeline for EsimVietNam: lint + test Go/Node, build Docker images, deploy to VPS via SSH. Secrets managed through GH Actions Secrets (SSH keys only — no app secrets pushed).",
     },
   },
   linux: {
@@ -325,6 +459,51 @@ export const skillsDictionary = {
     description: {
       vi: "Distro ưa thích cho workstation và container host với apt ecosystem.",
       en: "Favorite distro for workstations and container hosts with the apt ecosystem.",
+    },
+  },
+  claudeCode: {
+    name: "Claude Code",
+    image:
+      "https://www.anthropic.com/favicon.ico",
+    link: "https://www.anthropic.com/claude-code",
+    proficiency: 80,
+    badge: {
+      vi: "Vibe Coding",
+      en: "Vibe Coding",
+    },
+    description: {
+      vi: "Trợ lý AI CLI mình dùng hằng ngày cho code review, refactor, debug và sinh boilerplate.",
+      en: "AI CLI assistant I use daily for code review, refactoring, debugging, and scaffolding.",
+    },
+  },
+  cursor: {
+    name: "Cursor",
+    image:
+      "https://cursor.sh/favicon.ico",
+    link: "https://cursor.sh/",
+    proficiency: 70,
+    badge: {
+      vi: "AI Editor",
+      en: "AI Editor",
+    },
+    description: {
+      vi: "Editor AI-native — pair-programming, multi-file edit, agent mode khi cần workflow nhanh.",
+      en: "AI-native editor — pair programming, multi-file edits, agent mode for rapid workflows.",
+    },
+  },
+  copilot: {
+    name: "GitHub Copilot",
+    image:
+      "https://github.githubassets.com/images/modules/site/copilot/copilot.png",
+    link: "https://github.com/features/copilot",
+    proficiency: 70,
+    badge: {
+      vi: "AI Pair",
+      en: "AI Pair",
+    },
+    description: {
+      vi: "Gợi ý inline + chat trong IDE, hỗ trợ tốc độ viết code và khám phá API mới.",
+      en: "Inline suggestions + IDE chat — accelerates coding and helps explore unfamiliar APIs.",
     },
   },
   postman: {
